@@ -1,0 +1,23 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Dev | Web",
+			"command": "npm run dev",
+			"request": "launch",
+			"type": "node-terminal"
+		},
+		{
+			"name": "Preview Build | Web",
+			"command": "npm run preview",
+			"request": "launch",
+			"type": "node-terminal"
+		},
+		{
+			"name": "Dev | Tauri",
+			"command": "npm run tauri dev",
+			"request": "launch",
+			"type": "node-terminal"
+		}
+	]
+}

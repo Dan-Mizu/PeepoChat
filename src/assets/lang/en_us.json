@@ -1,0 +1,52 @@
+{
+    "window": {
+        "title": "PeepoChat"
+    },
+    "noChannelSelected": {
+        "title": "No Channel Selected",
+        "description": "Select or add a channel on the side."
+    },
+    "noMentions": {
+        "title": "No Mentions",
+        "description": "No one has mentioned you yet."
+    },
+    "chatFooter": {
+        "chatBox": {
+            "placeholder": "Peepo Chat...",
+            "openAttachmentsModal": "Select or Add Attachment",
+            "openEmojiPicker": "Open Emoji Picker",
+            "sendMessage": "Send Message"
+        },
+        "notAuthenticated": {
+            "description": "Sign In To Chat"
+        }
+    },
+    "toggleDarkMode": "Toggle Dark Mode",
+    "viewMentionsPage": "View Mentions",
+    "accountDropdown": {
+        "anon": {
+            "signIn": "Sign In"
+        }
+    },
+    "channelDropdown": {
+        "pinChannel": "Pin",
+        "unPinChannel": "Remove Pin"
+    },
+    "attachmentModal": {
+        "addAttachment": "Add",
+        "cancelSelection": "Cancel",
+        "sendAttachment": "Send"
+    },
+    "emojiPicker": {
+        "tab": {
+            "people": "People",
+            "nature": "Nature",
+            "food": "Food",
+            "activity": "Activity",
+            "objects": "Objects",
+            "travel": "Travel",
+            "flags": "Flags"
+        },
+        "searchBarPlaceholder": "Search..."
+    }
+}

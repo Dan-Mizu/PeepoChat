@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "meta-viewport": "off",
+    "apple-touch-icons": "off",
+    "manifest-app-name": "off"
+  }
+}

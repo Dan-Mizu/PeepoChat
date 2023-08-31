@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* roboto-regular - latin */
+@font-face {
+	font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: 400;
+	src: url("../font/roboto-v30-latin-regular.woff2") format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* debugging */
+/* * { outline: 1px solid red; } */
+
+:root {
+	--popper-theme-background-color: #f0f0f0;
+	--popper-theme-background-color-hover: #f0f0f0;
+	--popper-theme-text-color: #000000;
+	--popper-theme-border-width: 0px;
+	--popper-theme-border-style: solid;
+	--popper-theme-border-radius: 6px;
+	--popper-theme-padding: 10px;
+	--popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+}
+
+.dark {
+	--popper-theme-background-color: #333333;
+	--popper-theme-background-color-hover: #333333;
+	--popper-theme-text-color: #ffffff;
+}
+
+@layer utilities {
+	/* hidden scrollbar */
+	.scrollbar-hidden::-webkit-scrollbar {
+		@apply hidden;
+	}
+
+	.scrollbar-hidden {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	/* custom outline */
+	.default-outline {
+		@apply focus-visible:outline-black dark:focus-visible:outline-white rounded-[4px];
+	}
+
+	/* custom range slider input */
+	.slider {
+		@apply bg-gray-300 appearance-none outline-none h-[6px] rounded-[4px];
+	}
+
+	.slider::-webkit-slider-thumb {
+		@apply bg-indigo-300 w-[12px] h-[12px] mt-[-2px] appearance-none outline-none border-none cursor-pointer rounded-full;
+	}
+
+	.slider::-moz-range-thumb {
+		@apply bg-indigo-300 w-[12px] h-[12px] appearance-none outline-none border-none cursor-pointer rounded-full;
+	}
+
+	.slider::-moz-range-progress {
+		@apply h-[6px] rounded-[4px] bg-indigo-300;
+	}
+
+	.slider::-webkit-slider-runnable-track {
+		@apply rounded-[4px] h-[6px] cursor-pointer;
+	}
+
+	.video-slider {
+		background: transparent !important;
+	}
+
+	.video-slider::-moz-range-thumb {
+		width: 0px;
+		height: 0px;
+	}
+
+	.video-slider::-webkit-slider-thumb {
+		width: 0px;
+		height: 0px;
+	}
+}

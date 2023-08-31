@@ -1,0 +1,29 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Install Dependencies",
+			"type": "shell",
+			"command": "npm install"
+		},
+		{
+			"label": "Build",
+			"type": "shell",
+			"command": "npm run tauri build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "Generate App Icon",
+			"type": "shell",
+			"command": "npm run tauri icon src/assets/site/icon/icon.png"
+		},
+		{
+			"label": "Generate Favicon",
+			"type": "shell",
+			"command": "npx real-favicon generate faviconDescription.json faviconData.json ./src/assets/site/icon/ && npx real-favicon inject faviconData.json ./src/ ./src/*.html"
+		}
+	]
+}
