@@ -14,7 +14,7 @@
     "dev:host": "vite --host",
     "preview": "vite preview",
     "preview:host": "vite preview --host",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit && vite build --emptyOutDir",
     "tauri": "tauri"
   },
   "dependencies": {
