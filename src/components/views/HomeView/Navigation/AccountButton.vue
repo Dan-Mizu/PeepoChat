@@ -46,7 +46,7 @@ const avatar = computed(() => {
 		<button
 			:id="props.id + '-button'"
 			@click="showDropdown"
-			class="bg-light-primary outline outline-3 outline-light-accent dark:outline-dark-accent rounded-sm transition duration-500 hover:scale-105"
+			class="bg-light-primary ring-4 ring-light-accent dark:ring-dark-accent rounded-sm transition duration-500 hover:scale-105"
 			:aria-expanded="dropdownActive"
 			aria-controls="profile-button"
 			aria-label="toggle profile menu"

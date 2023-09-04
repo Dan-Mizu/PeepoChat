@@ -134,7 +134,7 @@ const togglePin = (): void => {
 			"
 			@auxclick="showDropdown"
 			v-bind:class="{
-				'outline-light-live dark:outline-dark-live outline outline-2 outline-offset-2 transition duration-500':
+				'ring-light-live dark:ring-dark-live ring-2 ring-offset-2 ring-offset-light-secondary dark:ring-offset-dark-secondary transition duration-500':
 					channelData.stream,
 			}"
 			class="bg-white mb-4 rounded-full focus:outline-none transition duration-500 hover:scale-105"
