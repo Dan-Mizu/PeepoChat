@@ -1,10 +1,18 @@
 <script setup lang="ts">
-import useStore from "src/store/store";
-
-import { IconMoonFilled, IconSunFilled, IconAt } from "@tabler/icons-vue";
 import ChannelButton from "src/components/views/HomeView/Navigation/ChannelButton.vue";
 import AccountButton from "src/components/views/HomeView/Navigation/AccountButton.vue";
+import IconButton from "src/components/ui/inputs/IconButton.vue";
 import NavLink from "src/components/views/HomeView/Navigation/NavLink.vue";
+
+import useStore from "src/store/store";
+
+import {
+	IconMoonFilled,
+	IconSunFilled,
+	IconAt,
+	IconPlus,
+} from "@tabler/icons-vue";
+import { toast } from "src/utils";
 import Lang from "src/assets/lang/en_us.json";
 
 const store = useStore();
@@ -31,6 +39,17 @@ const toggleDarkMode = () => {
 							:channel-id="channel.id"
 							:channel-platform="channel.platform"
 						/>
+					</li>
+					<li class="flex justify-center">
+						<IconButton
+							variant="primary"
+							class="hover:scale-110"
+							@click="toast.error(Lang.error.unimplemented)"
+						>
+							<IconPlus
+								class="text-light-tertiary dark:text-dark-tertiary transition duration-500 m-3"
+							></IconPlus>
+						</IconButton>
 					</li>
 				</ul>
 			</nav>
