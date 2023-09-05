@@ -1,7 +1,7 @@
 <h1 align="center">PeepoChat</h1>
 
 <p align="center">
-    <img src="./assets/icon.png" width="15%" alt="Logo" />
+    <a href="#"><img src="./assets/icon.png" width="15%" alt="Logo" /></a>
 </p>
 
 <p align="center">
@@ -21,12 +21,12 @@
 
 ## ⬇️ **Installing**
 
--   [Download From Our Website](http://peepochat.com)
+-   [Download From Our Website](http://preview.peepochat.com)
     </br>
     **OR**
 -   [Download From Releases](https://github.com/Dan-Mizu/PeepoChat/releases)
 
-**PeepoChat also works within a browser! Visit [peepochat.com](http://peepochat.com)!**
+**PeepoChat also works within a browser! Visit [peepochat.com](http://preview.peepochat.com)!**
 
 ## 🔠 **Languages**
 
