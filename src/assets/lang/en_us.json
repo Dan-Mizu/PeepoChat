@@ -48,5 +48,8 @@
             "flags": "Flags"
         },
         "searchBarPlaceholder": "Search..."
+    },
+    "error": {
+        "unimplemented": "Currently Unimplemented"
     }
 }

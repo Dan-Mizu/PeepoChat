@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import useStore from "src/store/store";
-
-import { IconSquareRoundedArrowRight } from "@tabler/icons-vue";
+import { computed, ref } from "vue";
 import Dropdown from "src/components/ui/navigation/Dropdown/Dropdown.vue";
 import DropdownLink from "src/components/ui/navigation/Dropdown/DropdownLink.vue";
+
+import useStore from "src/store/store";
+const store = useStore();
+
+import { toast } from "src/utils";
+
+import { IconSquareRoundedArrowRight } from "@tabler/icons-vue";
 import Lang from "src/assets/lang/en_us.json";
-import { computed, ref } from "vue";
 
 const props = defineProps<{
 	id: string;
 }>();
-
-const store = useStore();
 
 // handle dropdown
 const dropdownActive = ref(false);
@@ -71,6 +73,7 @@ const avatar = computed(() => {
 				label="Sign In"
 				:handle-click="closeDropdown"
 				tabindex="0"
+				@click="toast.error(Lang.error.unimplemented)"
 			>
 				<IconSquareRoundedArrowRight
 					class="h-5 w-5 mr-3 text-light-text dark:text-dark-text"

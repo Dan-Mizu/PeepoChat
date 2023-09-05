@@ -1,8 +1,14 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import type { Ref } from "vue";
 
+import IconButton from "src/components/ui/inputs/IconButton.vue";
+import ScaleTransition from "src/components/ui/transitions/ScaleTransition.vue";
+import EmojiPicker from "src/components/ui/inputs/EmojiPicker/EmojiPicker.vue";
+import SidebarButton from "src/components/ui/inputs/SidebarButton.vue";
+import Textarea from "src/components/ui/inputs/Textarea.vue";
+
 import useStore from "src/store/store";
-import { ref } from "vue";
 
 import {
 	IconMoodSmileBeam,
@@ -10,11 +16,7 @@ import {
 	// IconPaperclip,
 	IconCircleX,
 } from "@tabler/icons-vue";
-import IconButton from "src/components/ui/inputs/IconButton.vue";
-import ScaleTransition from "src/components/ui/transitions/ScaleTransition.vue";
-import EmojiPicker from "src/components/ui/inputs/EmojiPicker/EmojiPicker.vue";
-import SidebarButton from "src/components/ui/inputs/SidebarButton.vue";
-import Textarea from "src/components/ui/inputs/Textarea.vue";
+import { toast } from "src/utils";
 import Lang from "src/assets/lang/en_us.json";
 
 const store = useStore();
@@ -128,6 +130,7 @@ const handleClickOutside = (event: Event) => {
 				variant="ghost"
 				:title="Lang.chatFooter.chatBox.sendMessage"
 				:aria-label="Lang.chatFooter.chatBox.sendMessage"
+				@click="toast.error(Lang.error.unimplemented)"
 			>
 				<IconSend class="w-[17px] h-[17px] text-white" />
 			</IconButton>
