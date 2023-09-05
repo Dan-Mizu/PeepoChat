@@ -30,6 +30,13 @@ onMounted(async () => {
 		user: request.data.user,
 		channelData: request.data.channel,
 	});
+
+	// update dark mode
+	window
+		.matchMedia("(prefers-color-scheme: dark)")
+		.addEventListener("change", (e) => {
+			store.settings.darkMode = e.matches ? true : false;
+		});
 });
 
 // the app height
