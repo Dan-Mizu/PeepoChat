@@ -50,7 +50,10 @@ onMounted(async () => {
 	window.addEventListener("resize", resizeWindow);
 	window.addEventListener("contextmenu", preventContextMenu);
 
-	await getChannelInfo();
+	// get channel data for saved channels
+	try {
+		await getChannelInfo();
+	} catch (e) {}
 });
 
 // remove events when un-mounting the component.
