@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import FadeTransition from "src/components/ui/transitions/FadeTransition.vue";
+import Loading from "src/components/states/loading-states/Loading.vue";
+import NoChatSelected from "src/components/states/empty-states/NoChatSelected.vue";
+import NoMentions from "src/components/states/empty-states/NoMentions.vue";
+import Navigation from "src/components/views/HomeView/Navigation/Navigation.vue";
+import Chat from "src/components/views/HomeView/Chat/Chat.vue";
 
 import useStore from "src/store/store";
-
-import Chat from "src/components/views/HomeView/Chat/Chat.vue";
-import Navigation from "src/components/views/HomeView/Navigation/Navigation.vue";
-import NoChatSelected from "src/components/states/empty-states/NoChatSelected.vue";
-import Loading from "src/components/states/loading-states/Loading.vue";
-import FadeTransition from "src/components/ui/transitions/FadeTransition.vue";
-import NoMentions from "src/components/states/empty-states/NoMentions.vue";
-
 const store = useStore();
 
 // the active chat component or loading component.
@@ -26,11 +24,6 @@ const activeChatComponent = computed(() => {
 	// fallback
 	else return NoChatSelected;
 });
-
-if (JSON.parse(localStorage.getItem("chat") as any).settings.darkMode)
-	store.settings.darkMode = JSON.parse(
-		localStorage.getItem("chat") as any
-	).settings.darkMode;
 </script>
 
 <template>
