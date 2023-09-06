@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { computed, provide } from "vue";
-import useStore from "src/store/store";
-
+import { computed, provide, onMounted } from "vue";
 import ChatBottom from "src/components/views/HomeView/Chat/ChatBottom/ChatBottom.vue";
 import ChatMiddle from "src/components/views/HomeView/Chat/ChatMiddle/ChatMiddle.vue";
 import ChatTop from "src/components/views/HomeView/Chat/ChatTop/ChatTop.vue";
 
+import useStore from "src/store/store";
 const store = useStore();
+
+import { setTitle } from "src/utils";
 
 // find the channel's data
 const activeChannelData = computed(
@@ -48,6 +49,11 @@ const activeChannelData = computed(
 		return null;
 	}
 );
+
+onMounted(() => {
+	// set title
+	setTitle({ suffix: activeChannelData.value?.username });
+});
 
 // provide the active channel to children
 provide("activeChannel", activeChannelData.value);

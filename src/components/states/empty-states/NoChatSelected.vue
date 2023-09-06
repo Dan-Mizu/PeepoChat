@@ -1,8 +1,17 @@
 <script setup lang="ts">
-import { IconMessageCircle2 } from "@tabler/icons-vue";
+import { onMounted } from "vue";
 import Typography from "src/components/ui/data-display/Typography.vue";
 import SidebarButton from "src/components/ui/inputs/SidebarButton.vue";
+
+import { IconMessageCircle2 } from "@tabler/icons-vue";
+
+import { setTitle } from "src/utils";
 import Lang from "src/assets/lang/en_us.json";
+
+onMounted(() => {
+	// set title
+	setTitle();
+});
 </script>
 
 <template>

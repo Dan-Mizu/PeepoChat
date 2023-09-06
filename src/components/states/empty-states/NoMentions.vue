@@ -1,8 +1,17 @@
 <script setup lang="ts">
-import { IconAt } from "@tabler/icons-vue";
+import { onMounted } from "vue";
 import Typography from "src/components/ui/data-display/Typography.vue";
 import SidebarButton from "src/components/ui/inputs/SidebarButton.vue";
+
+import { IconAt } from "@tabler/icons-vue";
+
+import { setTitle } from "src/utils";
 import Lang from "src/assets/lang/en_us.json";
+
+onMounted(() => {
+	// set title
+	setTitle({ suffix: "Mentions" });
+});
 </script>
 
 <template>

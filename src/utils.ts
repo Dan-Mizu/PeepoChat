@@ -82,3 +82,26 @@ export const toast = {
 		);
 	},
 };
+
+import Lang from "src/assets/lang/en_us.json";
+/**
+ * Sets the window title with prefix and suffix
+ *
+ * @param text Object Containing optional Prefix and Suffix
+ */
+export const setTitle = (text?: { prefix?: string; suffix?: string }) => {
+	// title with prefix and/or suffix
+	if (text) {
+		document.title =
+			//prefix
+			(text.prefix ? text.prefix + " " : "") +
+			// normal
+			Lang.window.title +
+			// suffix
+			(text.suffix ? " | " + text.suffix : "");
+	}
+	// default title
+	else {
+		document.title = Lang.window.title;
+	}
+};
