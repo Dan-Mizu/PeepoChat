@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-import { invoke } from "@tauri-apps/api/tauri";
-
-import useStore from "src/store/store";
-import { fetchData } from "src/store/defaults";
-
 import FadeTransition from "src/components/ui/transitions/FadeTransition.vue";
 
+import { invoke } from "@tauri-apps/api/tauri";
+
+import { fetchData } from "src/store/defaults";
+import useStore from "src/store/store";
 const store = useStore();
 
 // update localStorage with state changes
