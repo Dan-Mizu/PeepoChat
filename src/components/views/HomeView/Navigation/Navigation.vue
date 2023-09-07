@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import ChannelButton from "src/components/views/HomeView/Navigation/ChannelButton.vue";
 import AccountButton from "src/components/views/HomeView/Navigation/AccountButton.vue";
 import IconButton from "src/components/ui/inputs/IconButton.vue";
 import NavLink from "src/components/views/HomeView/Navigation/NavLink.vue";
-
-import useStore from "src/store/store";
+import AddChannelModal from "./AddChannelModal.vue";
 
 import {
 	IconMoonFilled,
@@ -12,15 +12,20 @@ import {
 	IconAt,
 	IconPlus,
 } from "@tabler/icons-vue";
-import { toast } from "src/utils";
+
 import Lang from "src/assets/lang/en_us.json";
 
+import useStore from "src/store/store";
 const store = useStore();
 
+// toggle dark mode theme button
 const toggleDarkMode = () => {
 	// toggle
 	store.settings.darkMode = !store.settings.darkMode;
 };
+
+// open modal used to send multiple attachments attachments.
+const openAddChannelModel = ref(false);
 </script>
 
 <template>
@@ -44,7 +49,7 @@ const toggleDarkMode = () => {
 						<IconButton
 							variant="primary"
 							class="hover:scale-110"
-							@click="toast.error(Lang.error.unimplemented)"
+							@click="openAddChannelModel = true"
 						>
 							<IconPlus
 								class="text-light-tertiary dark:text-dark-tertiary transition duration-500 m-3"
@@ -91,5 +96,10 @@ const toggleDarkMode = () => {
 				aria-labelledby="profile-button"
 			/>
 		</div>
+
+		<AddChannelModal
+			:open="openAddChannelModel"
+			:close-modal="() => (openAddChannelModel = false)"
+		/>
 	</div>
 </template>

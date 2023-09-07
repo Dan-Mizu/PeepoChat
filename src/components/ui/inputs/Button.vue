@@ -36,7 +36,7 @@ const props = defineProps<{
 				? 'bg-green-300 dark:bg-green-400'
 				: props.color === 'danger'
 				? 'bg-red-300 dark:bg-red-400'
-				: 'bg-light-accent dark:bg-dark-accent focus:outline-none',
+				: 'bg-light-accent dark:bg-dark-accent focus:outline-none hover:scale-105',
 		]"
 	>
 		<!--loading icon-->

@@ -32,10 +32,15 @@
         "pinChannel": "Pin",
         "unPinChannel": "Remove Pin"
     },
-    "attachmentModal": {
-        "addAttachment": "Add",
-        "cancelSelection": "Cancel",
-        "sendAttachment": "Send"
+    "addChannelModal": {
+        "cancel": "Cancel",
+        "addChannel": "Add Channel",
+        "typeChannelName": "Channel Name...",
+        "channelTab": {
+            "twitch": "Twitch",
+            "youtube": "Youtube",
+            "kick": "Kick"
+        }
     },
     "emojiPicker": {
         "tab": {
