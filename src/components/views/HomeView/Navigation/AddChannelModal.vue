@@ -16,6 +16,18 @@ const props = defineProps<{
 	open: boolean;
 	closeModal: () => void;
 }>();
+
+const addChannel = async (channel?: string): Promise<void> => {
+	// get channel text input if not provided
+	if (!channel)
+		channel = (
+			document.getElementById(
+				"addChannelModalTextInput"
+			) as HTMLInputElement
+		).value;
+
+	// do logic here
+};
 </script>
 
 <template>
@@ -58,7 +70,10 @@ const props = defineProps<{
 				<div class="px-5 py-6">
 					<TextInput
 						:placeholder="Lang.addChannelModal.typeChannelName"
+						id="addChannelModalTextInput"
 						type="text"
+						:onSubmit="addChannel"
+						:clear-on-submit="false"
 					/>
 				</div>
 
@@ -66,6 +81,7 @@ const props = defineProps<{
 
 				<!-- action buttons -->
 				<div class="flex w-full px-5">
+					<!-- close modal -->
 					<div class="grow flex justify-start">
 						<Button
 							variant="ghost"
@@ -76,7 +92,8 @@ const props = defineProps<{
 						</Button>
 					</div>
 
-					<Button @click="toast.error(Lang.error.unimplemented)">
+					<!-- submit -->
+					<Button @click="() => addChannel()">
 						{{ Lang.addChannelModal.addChannel }}
 					</Button>
 				</div>

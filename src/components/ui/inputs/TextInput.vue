@@ -1,16 +1,23 @@
 <script setup lang="ts">
 defineEmits(["valueChanged"]);
 
-const props = defineProps<{
-	id?: string;
-	type?: string;
-	label?: string;
-	value?: string;
-	placeholder?: string;
-	description?: string;
-	variant?: string;
-	class?: string;
-}>();
+const props = withDefaults(
+	defineProps<{
+		id?: string;
+		type?: string;
+		label?: string;
+		value?: string;
+		placeholder?: string;
+		description?: string;
+		variant?: string;
+		class?: string;
+		onSubmit?: (input: string) => void;
+		clearOnSubmit?: boolean;
+	}>(),
+	{
+		clearOnSubmit: true,
+	}
+);
 </script>
 
 <template>
@@ -32,6 +39,18 @@ const props = defineProps<{
 						'valueChanged',
 						($event.target as HTMLInputElement).value
 					)
+				"
+				@keydown.enter="
+					($event) => {
+						// send submit callback
+						if (onSubmit) onSubmit(($event.target as HTMLInputElement).value);
+
+						// clear text area
+						if (clearOnSubmit) ($event.target as HTMLInputElement).value = '';
+
+						// prevent new line
+						$event.preventDefault();
+					}
 				"
 				:type="props.type || 'text'"
 				:id="props.id"
