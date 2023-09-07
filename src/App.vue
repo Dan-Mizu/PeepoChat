@@ -30,12 +30,28 @@ onMounted(async () => {
 		channelData: request.data.channel,
 	});
 
-	// update dark mode
+	// get channel data for saved channels
+	try {
+		await getChannelInfo();
+	} catch (e) {}
+});
+
+// add events when the component mounts.
+onMounted(async () => {
+	window.addEventListener("resize", resizeWindow);
+	window.addEventListener("contextmenu", preventContextMenu);
 	window
 		.matchMedia("(prefers-color-scheme: dark)")
-		.addEventListener("change", (e) => {
-			store.settings.darkMode = e.matches ? true : false;
-		});
+		.addEventListener("change", updateDarkMode);
+});
+
+// remove events when un-mounting the component.
+onUnmounted(() => {
+	window.removeEventListener("resize", resizeWindow);
+	window.removeEventListener("contextmenu", preventContextMenu);
+	window
+		.matchMedia("(prefers-color-scheme: dark)")
+		.removeEventListener("change", updateDarkMode);
 });
 
 // the app height
@@ -51,22 +67,10 @@ const preventContextMenu = (event: MouseEvent) => {
 	event.preventDefault();
 };
 
-// add events when the component mounts.
-onMounted(async () => {
-	window.addEventListener("resize", resizeWindow);
-	window.addEventListener("contextmenu", preventContextMenu);
-
-	// get channel data for saved channels
-	try {
-		await getChannelInfo();
-	} catch (e) {}
-});
-
-// remove events when un-mounting the component.
-onUnmounted(() => {
-	window.removeEventListener("resize", resizeWindow);
-	window.removeEventListener("contextmenu", preventContextMenu);
-});
+// update dark mode setting
+const updateDarkMode = (event: MediaQueryListEvent) => {
+	store.settings.darkMode = event.matches ? true : false;
+};
 
 // update channel info
 const getChannelInfo = async () => {
