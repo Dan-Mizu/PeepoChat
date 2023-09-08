@@ -121,14 +121,32 @@ export const channel = {
 	 *
 	 * @param id Channel ID
 	 */
-	get: (id: number | string) => {
+	get: (
+		providedChannel:
+			| { id: number; platform: "twitch" | "kick" }
+			| { id: string; platform: "youtube" }
+	):
+		| ISavedTwitchChannel
+		| ISavedYoutubeChannel
+		| ISavedKickChannel
+		| null => {
 		// get store instance
 		const store = useStore();
 
 		// find channel
-		let channel = store.user.channels.find((channel) => channel.id === id);
+		let channel = store.user.channels.find(
+			(channel) =>
+				channel.id === providedChannel.id &&
+				channel.platform === providedChannel.platform
+		);
+
 		// return channel
-		return channel != null ? channel : null;
+		return channel != null
+			? (channel as
+					| ISavedTwitchChannel
+					| ISavedYoutubeChannel
+					| ISavedKickChannel)
+			: null;
 	},
 
 	/**
@@ -141,7 +159,7 @@ export const channel = {
 			| ISavedTwitchChannel
 			| ISavedYoutubeChannel
 			| ISavedKickChannel
-	) => {
+	): Promise<void> => {
 		// get store instance
 		const store = useStore();
 
@@ -169,23 +187,35 @@ export const channel = {
 	 *
 	 * @param id Channel ID
 	 */
-	remove: (id: number | string) => {
+	remove: (
+		providedChannel:
+			| { id: number; platform: "twitch" | "kick" }
+			| { id: string; platform: "youtube" }
+	): void => {
 		// get store instance
 		const store = useStore();
 
 		// close chat view if currently open
-		if (store.activeView.data?.id === id) store.activeView.data = undefined;
+		if (
+			store.activeView.data?.id === providedChannel.id &&
+			store.activeView.data?.platform === providedChannel.platform
+		)
+			store.activeView.data = undefined;
 
 		// find and remove channel from saved channel array
 		store.user.channels.splice(
-			store.user.channels.findIndex((channel) => channel.id === id),
+			store.user.channels.findIndex(
+				(channel) =>
+					channel.id === providedChannel.id &&
+					channel.platform === providedChannel.platform
+			),
 			1
 		);
 
 		// remove channel data
 		store.channelData["twitch"].splice(
 			store.channelData["twitch"].findIndex(
-				(channel) => channel.id === id
+				(channel) => channel.id === providedChannel.id
 			),
 			1
 		);
@@ -241,7 +271,7 @@ export const channel = {
 	},
 
 	/** Update All Saved Channel Data */
-	updateAllData: async () => {
+	updateAllData: async (): Promise<void> => {
 		// get store instance
 		const store = useStore();
 
@@ -292,7 +322,7 @@ export const channel = {
 		providedChannel:
 			| { id: number; platform: "twitch" | "kick" }
 			| { id: string; platform: "youtube" }
-	) => {
+	): Promise<void> => {
 		// get store instance
 		const store = useStore();
 

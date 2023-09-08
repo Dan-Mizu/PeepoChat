@@ -54,7 +54,22 @@ const handleCloseOnClickOutside = (event: Event) => {
 };
 
 // get saved channel data
-const savedChannel = ref(channel.get(props.channelId));
+const savedChannel = computed(() => {
+	if (
+		props.channelPlatform === "twitch" ||
+		props.channelPlatform === "kick"
+	) {
+		return channel.get({
+			id: props.channelId as number,
+			platform: props.channelPlatform as "twitch" | "kick",
+		}) as ISavedTwitchChannel | ISavedKickChannel;
+	} else {
+		return channel.get({
+			id: props.channelId as string,
+			platform: "youtube",
+		}) as ISavedYoutubeChannel;
+	}
+});
 
 // get channel data
 const channelData = computed(() => {
@@ -72,6 +87,22 @@ const channelData = computed(() => {
 		}) as IYoutubeChannelData;
 });
 
+// remove channel
+const removeChannel = () => {
+	// twitch / kick
+	if (props.channelPlatform === "twitch" || props.channelPlatform === "kick")
+		channel.remove({
+			id: savedChannel.value.id as number,
+			platform: savedChannel.value.platform as "twitch" | "kick",
+		});
+	// youtube
+	else
+		channel.remove({
+			id: savedChannel.value.id as string,
+			platform: savedChannel.value.platform as "youtube",
+		});
+};
+
 // toggle pin
 const togglePin = (): void => {
 	if (savedChannel.value)
@@ -84,7 +115,11 @@ const togglePin = (): void => {
 		<Popover placement="right" :disabled="dropdownActive">
 			<!-- popover content -->
 			<template #content>
-				{{ channelData.username }}
+				{{
+					savedChannel.platform === "twitch"
+						? savedChannel.display_name
+						: channelData.username
+				}}
 				<span
 					v-if="channelData.stream"
 					class="text-white bg-light-live dark:bg-dark-live rounded-[0.2rem] px-[3px] text-xs font-bold ml-2 transition-all duration-500 select-none"
@@ -192,7 +227,7 @@ const togglePin = (): void => {
 					label="Remove"
 					:handle-click="closeDropdown"
 					tabindex="0"
-					@click="channel.remove(props.channelId)"
+					@click="removeChannel"
 				>
 					<div class="flex">
 						<IconCircleMinus
