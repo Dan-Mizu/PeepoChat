@@ -18,7 +18,7 @@ const props = defineProps<{
 		@click="$emit('button-clicked', $event)"
 		tabindex="0"
 		:class="[
-			'group p-3 flex justify-center items-center rounded-sm transition-all duration-200 outline-none',
+			'group p-3 flex justify-center items-center rounded-sm transition-all duration-200 outline-none select-none',
 			props.class,
 			props.variant === 'outlined'
 				? props.color === 'success'

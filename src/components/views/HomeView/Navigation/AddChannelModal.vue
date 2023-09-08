@@ -126,10 +126,10 @@ const addChannel = async (channel?: string): Promise<void> => {
 					<!-- platform tabs -->
 					<span class="flex items-center justify-center">
 						<button
-							class="bg-twitch-background text-twitch-icon px-3 py-2 rounded-md flex hover:scale-105 transition-all duration-500 mr-4"
+							class="bg-twitch-background text-twitch-icon px-3 py-2 rounded-md flex select hover:scale-105 transition-all duration-500 mr-4"
 						>
 							<IconBrandTwitch class="mr-2" />
-							<span class="font-bold">{{
+							<span class="font-bold select-none">{{
 								Lang.addChannelModal.channelTab.twitch
 							}}</span>
 						</button>
@@ -138,7 +138,7 @@ const addChannel = async (channel?: string): Promise<void> => {
 							@click="toast.error(Lang.error.unimplemented)"
 						>
 							<IconBrandYoutubeFilled class="mr-2" />
-							<span class="font-bold">{{
+							<span class="font-bold select-none">{{
 								Lang.addChannelModal.channelTab.youtube
 							}}</span>
 						</button>
@@ -147,7 +147,7 @@ const addChannel = async (channel?: string): Promise<void> => {
 							@click="toast.error(Lang.error.unimplemented)"
 						>
 							<IconBrandKick class="mr-2 fill-current" />
-							<span class="font-bold">{{
+							<span class="font-bold select-none">{{
 								Lang.addChannelModal.channelTab.kick
 							}}</span>
 						</button>
