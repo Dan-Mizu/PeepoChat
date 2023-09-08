@@ -10,7 +10,7 @@ const store = useStore();
 
 import { invoke } from "@tauri-apps/api/tauri";
 
-import { toast } from "src/utils";
+import { toast, channel } from "src/utils";
 import Lang from "src/assets/lang/en_us.json";
 
 import {
@@ -25,16 +25,26 @@ const props = defineProps<{
 	closeModal: () => void;
 }>();
 
+// current modal state
 const view: Ref<{
 	state: "addChannel" | "loading" | "success";
 	channelData?: {
+		/** Numeric ID of the Twitch Channel. */
+		id: number;
+		/** Twitch Channel. */
+		platform: "twitch";
+		/** Channel's login */
+		login: string;
+		/** Channel's display name. */
 		display_name: string;
+		/** Channel's profile picture. */
 		avatar: string;
 	};
 }> = ref({
 	state: "addChannel",
 });
 
+// close modal
 const closeModalChecker = () => {
 	// prevent modal closing while loading
 	if (view.value.state === "loading") return;
@@ -52,7 +62,8 @@ const closeModalChecker = () => {
 	);
 };
 
-const addChannel = async (channel?: string): Promise<void> => {
+// check if channel exists, and grab its data
+const checkForChannel = async (channel?: string): Promise<void> => {
 	// get channel text input if not provided
 	if (!channel)
 		channel = (
@@ -90,6 +101,9 @@ const addChannel = async (channel?: string): Promise<void> => {
 		view.value = {
 			state: "success",
 			channelData: {
+				id: Number(response.id),
+				platform: "twitch",
+				login: response.login,
 				display_name: response.display_name,
 				avatar: response.profile_image_url,
 			},
@@ -122,6 +136,7 @@ const addChannel = async (channel?: string): Promise<void> => {
 			<div
 				class="w-[400px] bg-light-primary dark:bg-dark-primary rounded py-6"
 			>
+				<!-- Search For Channel -->
 				<span v-if="view.state === 'addChannel'">
 					<!-- platform tabs -->
 					<span class="flex items-center justify-center">
@@ -159,7 +174,7 @@ const addChannel = async (channel?: string): Promise<void> => {
 							:placeholder="Lang.addChannelModal.typeChannelName"
 							id="addChannelModalTextInput"
 							type="text"
-							:onSubmit="addChannel"
+							:onSubmit="checkForChannel"
 							:clear-on-submit="false"
 						/>
 					</div>
@@ -180,17 +195,21 @@ const addChannel = async (channel?: string): Promise<void> => {
 						</div>
 
 						<!-- submit -->
-						<Button @click="() => addChannel()">
+						<Button @click="checkForChannel()">
 							{{ Lang.addChannelModal.addChannel }}
 						</Button>
 					</div>
 				</span>
+
+				<!-- Waiting For Backend -->
 				<span
 					v-else-if="view.state === 'loading'"
 					class="flex h-36 justify-center items-center"
 				>
 					<Spinner />
 				</span>
+
+				<!-- Channel Found -->
 				<span v-else-if="view.state === 'success'">
 					<!-- go back -->
 					<Button
@@ -253,7 +272,16 @@ const addChannel = async (channel?: string): Promise<void> => {
 
 						<!-- submit -->
 						<Button
-							@click="() => toast.error(Lang.error.unimplemented)"
+							@click="
+								() => {
+									// add channel
+									if (view.channelData)
+										channel.add(view.channelData);
+
+									// close modal
+									closeModalChecker();
+								}
+							"
 						>
 							{{ Lang.addChannelModal.addChannel }}
 						</Button>

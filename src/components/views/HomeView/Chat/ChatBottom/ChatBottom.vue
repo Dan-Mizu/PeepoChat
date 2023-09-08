@@ -48,10 +48,10 @@ const handleClickOutside = (event: Event) => {
 
 <template>
 	<!-- Footer -->
-	<div v-if="store.status !== 'loading'" class="p-4 flex">
+	<div class="p-4 flex">
 		<!-- sidebar button -->
 		<div class="mr-5 self-center relative">
-			<SidebarButton></SidebarButton>
+			<SidebarButton />
 		</div>
 
 		<!-- Chat Box-->

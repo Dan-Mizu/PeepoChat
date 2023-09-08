@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import Typography from "src/components/ui/data-display/Typography.vue";
-import SidebarButton from "src/components/ui/inputs/SidebarButton.vue";
-
-import { IconMessageCircle2 } from "@tabler/icons-vue";
+import StandardFooter from "src/components/ui/utils/StandardFooter.vue";
 
 import { setTitle } from "src/utils";
+
 import Lang from "src/assets/lang/en_us.json";
+
+import { IconMessageCircle2 } from "@tabler/icons-vue";
 
 onMounted(() => {
 	// set title
@@ -38,11 +39,7 @@ onMounted(() => {
 			</Typography>
 		</div>
 
-		<!-- sidebar button -->
-		<div class="p-4 flex">
-			<div class="mr-5 self-center relative">
-				<SidebarButton></SidebarButton>
-			</div>
-		</div>
+		<!-- standard footer -->
+		<StandardFooter />
 	</div>
 </template>

@@ -21,13 +21,15 @@ interface IUser {
 	 */
 	avatar?: string;
 	/** A list of channels the user has saved, in order. */
-	channels: (ISavedTwitchChannel|ISavedYoutubeChannel|ISavedKickChannel)[];
+	channels: (
+		| ISavedTwitchChannel
+		| ISavedYoutubeChannel
+		| ISavedKickChannel
+	)[];
 }
 
 /** Common properties to saved channels from any platform */
 interface ISavedChannel {
-	/** The platform of this saved channel. */
-	platform: "twitch" | "youtube" | "kick";
 	/**
 	 * Whether this channel is pinned on the sidebar.
 	 *
@@ -38,20 +40,30 @@ interface ISavedChannel {
 
 /** Twitch Specific Saved Channel Info */
 interface ISavedTwitchChannel extends ISavedChannel {
-	/** Numeric ID of a Twitch Channel. */
+	/** Numeric ID of this Twitch Channel. */
 	id: number;
+	/** Twitch Channel. */
+	platform: "twitch";
+	/** Twitch Login */
+	login: string;
+	/** Twitch Display Name */
+	display_name: string;
 }
 
 /** Youtube Specific Channel Data */
 interface ISavedYoutubeChannel extends ISavedChannel {
-	/** String ID of a Youtube Channel. */
+	/** String ID of this Youtube Channel. */
 	id: string;
+	/** Youtube Channel. */
+	platform: "youtube";
 }
 
 /** Kick Specific Channel Data */
 interface ISavedKickChannel extends ISavedChannel {
-	/** Numeric ID of a Kick Channel. */
+	/** Numeric ID of this Kick Channel. */
 	id: number;
+	/** Kick Channel. */
+	platform: "kick";
 }
 
 /** State of current view */
@@ -64,7 +76,7 @@ interface IActiveView {
 	 * - "mentions" represents the page that shows the user's pings/mentions in any chat.
 	 *
 	 */
-	type: "chat" | "mentions";
+	type: "loading" | "chat" | "mentions";
 	/** Holds any data that may be useful for the current view, such as the active channel's ID and platform. */
 	data?: IActiveChat;
 }

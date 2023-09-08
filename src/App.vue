@@ -2,11 +2,10 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import FadeTransition from "src/components/ui/transitions/FadeTransition.vue";
 
-import { invoke } from "@tauri-apps/api/tauri";
-
-import { fetchData } from "src/store/defaults";
 import useStore from "src/store/store";
 const store = useStore();
+
+import { channel } from "./utils";
 
 // update localStorage with state changes
 store.$subscribe((_mutation, state) => {
@@ -15,25 +14,21 @@ store.$subscribe((_mutation, state) => {
 
 // here we load the data from the server.
 onMounted(async () => {
-	store.status = "loading";
-
-	// fake server call
-	setTimeout(() => {
-		store.delayLoading = false;
-	});
-	const request = await fetchData();
-
-	store.$patch({
-		status: "success",
-		settings: store.settings,
-		user: request.data.user,
-		channelData: request.data.channel,
-	});
+	// start in loading view
+	store.activeView.type = "loading";
 
 	// get channel data for saved channels
 	try {
-		await getChannelInfo();
+		await channel.updateAllData();
 	} catch (e) {}
+
+	// artificial delay
+	const delay = (ms: number) =>
+		new Promise((resolve) => setTimeout(resolve, ms));
+	await delay(800);
+
+	// go to chat view
+	store.activeView.type = "chat";
 });
 
 // add events when the component mounts.
@@ -70,46 +65,6 @@ const preventContextMenu = (event: MouseEvent) => {
 // update dark mode setting
 const updateDarkMode = (event: MediaQueryListEvent) => {
 	store.settings.darkMode = event.matches ? true : false;
-};
-
-// update channel info
-const getChannelInfo = async () => {
-	for (const channel of store.user.channels) {
-		// twitch channels only
-		if (channel.platform !== "twitch") continue;
-
-		// find channel data
-		let channelData = store.channelData["twitch"].find(
-			(channelData) => channelData.id === channel.id
-		) as ITwitchChannelData;
-
-		// get twitch channel data
-		await (
-			invoke("get_twitch_channel", {
-				userId: channel.id.toString(),
-			}) as Promise<ITwitchChannelResponse>
-		).then((response) => {
-			// update username
-			channelData.username = response.broadcaster_login;
-
-			// update stream data
-			channelData.stream = {
-				title: response.title,
-				category: response.game_name,
-				viewers: 0, //TODO: Implement actual live stream data
-				uptime: 0, //TODO: Implement actual live stream data
-			};
-		});
-
-		// get twitch user info
-		await (
-			invoke("get_twitch_user", {
-				username: channelData?.username,
-			}) as Promise<ITwitchUserResponse>
-		).then((response) => {
-			channelData.avatar = response.profile_image_url;
-		});
-	}
 };
 </script>
 

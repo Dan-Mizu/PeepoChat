@@ -38,8 +38,6 @@ const props = defineProps<{
 
 const store = useStore();
 
-// const loading = ref(true);
-
 // emojis filtered by skintone and keyword
 const filteredEmojis: Ref<IEmojiGroups> = ref(emojis);
 

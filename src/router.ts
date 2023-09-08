@@ -1,18 +1,23 @@
 import { createRouter, createWebHistory } from "vue-router";
+
+// components
 import HomeView from "src/components/views/HomeView/HomeView.vue";
+
+// lang
 import Lang from "src/assets/lang/en_us.json";
 
-const routes = [
-	{
-		path: "/",
-		name: "Home",
-		component: HomeView,
-	}
-];
-
 const router = createRouter({
+	// history
 	history: createWebHistory(),
-	routes,
+
+	// page routes
+	routes: [
+		{
+			path: "/",
+			name: "Home",
+			component: HomeView,
+		},
+	],
 });
 
 // set window title

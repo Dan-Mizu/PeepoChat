@@ -13,7 +13,7 @@ const store = useStore();
 // the active chat component or loading component.
 const activeChatComponent = computed(() => {
 	// loading
-	if (store.status === "loading" || store.delayLoading) return Loading;
+	if (store.activeView.type === "loading") return Loading;
 	// chat page
 	else if (store.activeView.type === "chat") {
 		if (store.activeView.data) return Chat;

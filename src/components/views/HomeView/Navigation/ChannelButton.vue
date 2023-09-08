@@ -6,6 +6,8 @@ import DropdownLink from "src/components/ui/navigation/Dropdown/DropdownLink.vue
 import useStore from "src/store/store";
 const store = useStore();
 
+import { channel } from "src/utils";
+
 import {
 	IconPinFilled,
 	IconPinnedOff,
@@ -15,11 +17,18 @@ import {
 	IconBrandKick,
 } from "@tabler/icons-vue";
 
-const props = defineProps<{
-	id: string;
-	channelId: number | string;
-	channelPlatform: "twitch" | "youtube" | "kick";
-}>();
+const props = defineProps<
+	| {
+			id: string;
+			channelId: number;
+			channelPlatform: "twitch" | "kick";
+	  }
+	| {
+			id: string;
+			channelId: string;
+			channelPlatform: "youtube";
+	  }
+>();
 
 // handle dropdown
 const dropdownActive = ref(false);
@@ -41,74 +50,24 @@ const handleCloseOnClickOutside = (event: Event) => {
 	}
 };
 
-// get reference to saved channel in user's data
-const getSavedChannel = ():
-	| ISavedTwitchChannel
-	| ISavedYoutubeChannel
-	| ISavedKickChannel
-	| null => {
-	// find channel data
-	let channel = store.user.channels.find(
-		(channel) => channel.id === props.channelId
-	);
-	return channel != null ? channel : null;
-};
-
 // get saved channel data
-const savedChannel = ref(getSavedChannel());
+const savedChannel = ref(channel.get(props.channelId));
 
 // get channel data
-const channelData = computed(
-	(): ITwitchChannelData | IYoutubeChannelData | IKickChannelData | null => {
-		// find channel data
-		let channel:
-			| ITwitchChannelData
-			| IYoutubeChannelData
-			| IKickChannelData;
-
-		// twitch channel
-		if (props.channelPlatform === "twitch") {
-			channel = store.channelData[props.channelPlatform].find(
-				(channel: ITwitchChannelData) => channel.id === props.channelId
-			) as ITwitchChannelData;
-			return channel != null ? channel : null;
-		}
-
-		// youtube channel
-		else if (props.channelPlatform === "youtube") {
-			channel = store.channelData[props.channelPlatform].find(
-				(channel: IYoutubeChannelData) => channel.id === props.channelId
-			) as IYoutubeChannelData;
-			return channel != null ? channel : null;
-		}
-
-		// kick channel
-		else if (props.channelPlatform === "kick") {
-			channel = store.channelData[props.channelPlatform].find(
-				(channel: IKickChannelData) => channel.id === props.channelId
-			) as IKickChannelData;
-			return channel != null ? channel : null;
-		}
-
-		// no channel found
-		return null;
-	}
-);
-
-// remove channel
-const removeChannel = (): void => {
-	// find and remove channel from saved channel array
-	store.user.channels.splice(
-		store.user.channels.findIndex(
-			(channel) => channel.id === props.channelId
-		),
-		1
-	);
-
-	// close chat view if currently open
-	if (store.activeView.data?.id === props.channelId)
-		store.activeView.data = undefined;
-};
+const channelData = computed(() => {
+	// twitch / kick
+	if (props.channelPlatform === "twitch" || props.channelPlatform === "kick")
+		return channel.getData({
+			id: props.channelId as number,
+			platform: props.channelPlatform,
+		}) as ITwitchChannelData | IKickChannelData;
+	// youtube
+	else
+		return channel.getData({
+			id: props.channelId as string,
+			platform: props.channelPlatform,
+		}) as IYoutubeChannelData;
+});
 
 // toggle pin
 const togglePin = (): void => {
@@ -220,7 +179,7 @@ const togglePin = (): void => {
 					label="Remove"
 					:handle-click="closeDropdown"
 					tabindex="0"
-					@click="removeChannel()"
+					@click="channel.remove(props.channelId)"
 				>
 					<div class="flex">
 						<IconCircleMinus

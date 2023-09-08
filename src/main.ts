@@ -1,19 +1,29 @@
+// app router
 import router from "src/router";
-import "./assets/site/style/main.css";
-import { createPinia } from "pinia";
+
+// vue
 import { createApp } from "vue";
+
+// plugins
 import vClickOutside from "click-outside-vue3";
 import Popper from "vue3-popper";
 import Toast, { PluginOptions } from "vue-toastification";
+
+// css
+import "./assets/site/style/main.css";
 import "vue-toastification/dist/index.css";
 
+// main app component
 import App from "src/App.vue";
 
-const pinia = createPinia();
+// create pinia instance
+import { createPinia } from "pinia";
+export const pinia = createPinia();
 
-createApp(App)
-	.use(pinia)
+// create app instance
+export const app = createApp(App)
 	.use(router)
+	.use(pinia)
 	.use(vClickOutside)
 	.use(Toast, {
 		shareAppContext: true,
