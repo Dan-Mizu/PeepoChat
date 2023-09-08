@@ -189,8 +189,6 @@ export const channel = {
 			),
 			1
 		);
-
-		console.log(store.user.channels);
 	},
 
 	/**

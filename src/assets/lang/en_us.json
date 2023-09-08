@@ -10,6 +10,9 @@
         "title": "No Mentions",
         "description": "No one has mentioned you yet."
     },
+    "chatHeader": {
+        "live": "LIVE"
+    },
     "chatFooter": {
         "chatBox": {
             "placeholder": "Peepo Chat...",

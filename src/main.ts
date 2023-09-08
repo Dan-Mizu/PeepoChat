@@ -6,11 +6,12 @@ import { createApp } from "vue";
 
 // plugins
 import vClickOutside from "click-outside-vue3";
-import Popper from "vue3-popper";
+import FloatingVue from "floating-vue";
 import Toast, { PluginOptions } from "vue-toastification";
 
 // css
 import "./assets/site/style/main.css";
+import "floating-vue/dist/style.css";
 import "vue-toastification/dist/index.css";
 
 // main app component
@@ -25,6 +26,21 @@ export const app = createApp(App)
 	.use(router)
 	.use(pinia)
 	.use(vClickOutside)
+	.use(FloatingVue, {
+		themes: {
+			tooltip: {
+				$resetCss: true,
+				triggers: ["hover"],
+				delay: {
+					show: 0,
+					hide: 0,
+				},
+				autoHide: true,
+				placement: "bottom",
+				html: true,
+			},
+		},
+	})
 	.use(Toast, {
 		shareAppContext: true,
 		transition: "Vue-Toastification__slideBlurred",
@@ -39,5 +55,4 @@ export const app = createApp(App)
 			return toast;
 		},
 	} as PluginOptions)
-	.component("Popper", Popper)
 	.mount("#app");

@@ -2,11 +2,14 @@
 import { computed, ref } from "vue";
 import Dropdown from "src/components/ui/navigation/Dropdown/Dropdown.vue";
 import DropdownLink from "src/components/ui/navigation/Dropdown/DropdownLink.vue";
+import Popover from "src/components/ui/data-display/Popover.vue";
 
 import useStore from "src/store/store";
 const store = useStore();
 
 import { channel } from "src/utils";
+
+import Lang from "src/assets/lang/en_us.json";
 
 import {
 	IconPinFilled,
@@ -78,7 +81,17 @@ const togglePin = (): void => {
 
 <template>
 	<div v-if="channelData" class="relative">
-		<Popper :content="channelData.username" placement="right" :hover="true">
+		<Popover placement="right" :disabled="dropdownActive">
+			<!-- popover content -->
+			<template #content>
+				{{ channelData.username }}
+				<span
+					v-if="channelData.stream"
+					class="text-white bg-light-live dark:bg-dark-live rounded-[0.2rem] px-[3px] text-xs font-bold ml-2 transition-all duration-500 select-none"
+					>{{ Lang.chatHeader.live }}</span
+				>
+			</template>
+
 			<!--toggle dropdown button-->
 			<button
 				:id="props.id + '-button'"
@@ -189,6 +202,6 @@ const togglePin = (): void => {
 					</div>
 				</DropdownLink>
 			</Dropdown>
-		</Popper>
+		</Popover>
 	</div>
 </template>

@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { inject } from "vue";
+import Popover from "src/components/ui/data-display/Popover.vue";
+
+import Lang from "src/assets/lang/en_us.json";
+
 import {
 	IconDeviceGamePad,
 	IconUsers,
 	IconClockHour4,
 } from "@tabler/icons-vue";
-import { inject } from "vue";
 
 // get channel info
 const channel = <ITwitchChannelData | IYoutubeChannelData | IKickChannelData>(
@@ -28,7 +32,7 @@ const channel = <ITwitchChannelData | IYoutubeChannelData | IKickChannelData>(
 				<!-- Left Side -->
 				<span
 					class="text-white bg-light-live dark:bg-dark-live rounded-[0.2rem] px-[3px] text-xs font-bold ml-2 transition-all duration-500 select-none"
-					>LIVE</span
+					>{{ Lang.chatHeader.live }}</span
 				>
 
 				<!-- scroll title when small width -->
@@ -76,38 +80,38 @@ const channel = <ITwitchChannelData | IYoutubeChannelData | IKickChannelData>(
 				<span
 					class="flex float-right text-xs items-center xs:flex md:hidden"
 				>
-					<Popper
-						:content="'Category: ' + channel.stream.category"
-						:hover="true"
-					>
+					<Popover class="px-3 py-2 m-0 text-xs">
+						<template #content>
+							{{ "Category: " + channel.stream.category }}
+						</template>
 						<IconDeviceGamePad
 							class="text-light-text dark:text-dark-text transition duration-500 h-5]"
 						/>
-					</Popper>
-					<Popper
-						:content="
-							'Viewers: ' +
-							channel.stream.viewers.toLocaleString()
-						"
-						:hover="true"
-					>
+					</Popover>
+					<Popover class="px-3 py-2 m-0 text-xs">
+						<template #content>
+							{{
+								"Viewers: " +
+								channel.stream.viewers.toLocaleString()
+							}}
+						</template>
 						<IconUsers
 							class="text-light-text dark:text-dark-text transition duration-500 h-[20px]"
 						/>
-					</Popper>
-					<Popper
-						:content="
-							'Uptime: ' +
-							new Date(channel.stream.uptime * 1000)
-								.toISOString()
-								.slice(11, 16)
-						"
-						:hover="true"
-					>
+					</Popover>
+					<Popover class="px-3 py-2 m-0 text-xs">
+						<template #content>
+							{{
+								"Uptime: " +
+								new Date(channel.stream.uptime * 1000)
+									.toISOString()
+									.slice(11, 16)
+							}}
+						</template>
 						<IconClockHour4
 							class="text-light-text dark:text-dark-text transition duration-500 h-[20px]"
 						/>
-					</Popper>
+					</Popover>
 				</span>
 			</span>
 		</div>
