@@ -55,6 +55,8 @@
         "searchBarPlaceholder": "Search..."
     },
     "error": {
-        "unimplemented": "Currently Unimplemented"
+        "unimplemented": "Currently Unimplemented",
+        "channelNotFound": "Channel {0} Not Found",
+        "channelAlreadyExists": "Channel {0} Is Already Added"
     }
 }

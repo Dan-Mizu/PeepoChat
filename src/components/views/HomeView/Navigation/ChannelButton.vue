@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { computed, ref } from "vue";
+import Dropdown from "src/components/ui/navigation/Dropdown/Dropdown.vue";
+import DropdownLink from "src/components/ui/navigation/Dropdown/DropdownLink.vue";
+
 import useStore from "src/store/store";
+const store = useStore();
 
 import {
 	IconPinFilled,
@@ -9,17 +14,12 @@ import {
 	IconBrandYoutubeFilled,
 	IconBrandKick,
 } from "@tabler/icons-vue";
-import Dropdown from "src/components/ui/navigation/Dropdown/Dropdown.vue";
-import DropdownLink from "src/components/ui/navigation/Dropdown/DropdownLink.vue";
-import { computed, ref } from "vue";
 
 const props = defineProps<{
 	id: string;
 	channelId: number | string;
 	channelPlatform: "twitch" | "youtube" | "kick";
 }>();
-
-const store = useStore();
 
 // handle dropdown
 const dropdownActive = ref(false);

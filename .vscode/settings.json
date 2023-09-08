@@ -15,6 +15,7 @@
         "tabler",
         "tailwindcss",
         "tauri",
+        "thiserror",
         "toastification",
         "videojs",
         "vueuse",

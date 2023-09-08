@@ -1,32 +1,55 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 import Modal from "src/components/ui/utils/Modal.vue";
 import Button from "src/components/ui/inputs/Button.vue";
 import TextInput from "src/components/ui/inputs/TextInput.vue";
 import Spinner from "src/components/ui/utils/Spinner.vue";
 
+import useStore from "src/store/store";
+const store = useStore();
+
+import { invoke } from "@tauri-apps/api/tauri";
+
+import { toast } from "src/utils";
+import Lang from "src/assets/lang/en_us.json";
+
 import {
 	IconBrandTwitch,
 	IconBrandYoutubeFilled,
 	IconBrandKick,
+	IconChevronLeft,
 } from "@tabler/icons-vue";
-
-import { toast } from "src/utils";
-import Lang from "src/assets/lang/en_us.json";
 
 const props = defineProps<{
 	open: boolean;
 	closeModal: () => void;
 }>();
 
-const loading = ref(false);
+const view: Ref<{
+	state: "addChannel" | "loading" | "success";
+	channelData?: {
+		display_name: string;
+		avatar: string;
+	};
+}> = ref({
+	state: "addChannel",
+});
 
 const closeModalChecker = () => {
 	// prevent modal closing while loading
-	if (loading) return;
+	if (view.value.state === "loading") return;
 
-	// otherwise, close modal like normal
-	props.closeModal()
+	// close modal
+	props.closeModal();
+
+	// reset view state after 500ms (time it takes for css transition to complete)
+	setTimeout(
+		() =>
+			(view.value = {
+				state: "addChannel",
+			}),
+		500
+	);
 };
 
 const addChannel = async (channel?: string): Promise<void> => {
@@ -39,9 +62,57 @@ const addChannel = async (channel?: string): Promise<void> => {
 		).value;
 
 	// loading state
-	loading.value = true;
+	view.value.state = "loading";
 
-	// do logic here
+	// create callbacks
+	const success = (response: ITwitchUserResponse) => {
+		// check if channel is already saved
+		if (
+			store.user.channels.find(
+				(channelData) => channelData.id == response.id
+			)
+		) {
+			// go back to addChannel state
+			view.value.state = "addChannel";
+
+			// send error
+			toast.error(
+				Lang.error.channelAlreadyExists.replace(
+					"{0}",
+					'"' + channel + '"'
+				)
+			);
+
+			return;
+		}
+
+		// success state
+		view.value = {
+			state: "success",
+			channelData: {
+				display_name: response.display_name,
+				avatar: response.profile_image_url,
+			},
+		};
+	};
+	const failure = (_response: any) => {
+		// go back to addChannel state
+		view.value.state = "addChannel";
+
+		// send error
+		toast.error(
+			Lang.error.channelNotFound.replace("{0}", '"' + channel + '"')
+		);
+	};
+
+	// attempt to retrieve channel
+	await (
+		invoke("get_twitch_user", {
+			username: channel,
+		}) as Promise<ITwitchUserResponse>
+	)
+		.then(success)
+		.catch(failure);
 };
 </script>
 
@@ -51,7 +122,7 @@ const addChannel = async (channel?: string): Promise<void> => {
 			<div
 				class="w-[400px] bg-light-primary dark:bg-dark-primary rounded py-6"
 			>
-				<span v-if="!loading">
+				<span v-if="view.state === 'addChannel'">
 					<!-- platform tabs -->
 					<span class="flex items-center justify-center">
 						<button
@@ -97,11 +168,11 @@ const addChannel = async (channel?: string): Promise<void> => {
 
 					<!-- action buttons -->
 					<div class="flex w-full px-5">
-						<!-- close modal -->
+						<!-- cancel -->
 						<div class="grow flex justify-start">
 							<Button
 								variant="ghost"
-								@click="props.closeModal"
+								@click="closeModalChecker"
 								class="mr-4"
 							>
 								{{ Lang.addChannelModal.cancel }}
@@ -114,8 +185,79 @@ const addChannel = async (channel?: string): Promise<void> => {
 						</Button>
 					</div>
 				</span>
-				<span v-else class="flex h-36 justify-center items-center">
-					<Spinner/>
+				<span
+					v-else-if="view.state === 'loading'"
+					class="flex h-36 justify-center items-center"
+				>
+					<Spinner />
+				</span>
+				<span v-else-if="view.state === 'success'">
+					<!-- go back -->
+					<Button
+						variant="ghost"
+						@click="
+							() => {
+								view = { state: 'addChannel' };
+							}
+						"
+						class="mx-4"
+					>
+						<IconChevronLeft
+							class="text-light-text dark:text-dark-text"
+						/>
+					</Button>
+
+					<!-- channel info -->
+					<span class="flex items-center justify-center mb-8 mt-4">
+						<!-- channel icon -->
+						<div class="bg-white rounded-full flex relative">
+							<!-- avatar -->
+							<div
+								id="channel-avatar"
+								:style="{
+									backgroundImage: `url(${view.channelData?.avatar})`,
+								}"
+								class="w-[55px] h-[55px] rounded-full bg-cover bg-center"
+							></div>
+
+							<!-- platform -->
+							<div
+								class="absolute right-0 flex w-[20px] h-[20px] items-center justify-center bg-twitch-background rounded-full"
+							>
+								<IconBrandTwitch
+									class="h-5 w-5 text-twitch-icon"
+								/>
+							</div>
+						</div>
+
+						<!-- channel name -->
+						<span
+							class="flex ml-4 font-bold text-light-text dark:text-dark-text transition-all duration-500"
+						>
+							{{ view.channelData?.display_name }}
+						</span>
+					</span>
+
+					<!-- action buttons -->
+					<div class="flex w-full px-5">
+						<!-- cancel -->
+						<div class="grow flex justify-start">
+							<Button
+								variant="ghost"
+								@click="closeModalChecker"
+								class="mr-4"
+							>
+								{{ Lang.addChannelModal.cancel }}
+							</Button>
+						</div>
+
+						<!-- submit -->
+						<Button
+							@click="() => toast.error(Lang.error.unimplemented)"
+						>
+							{{ Lang.addChannelModal.addChannel }}
+						</Button>
+					</div>
 				</span>
 			</div>
 		</template>
