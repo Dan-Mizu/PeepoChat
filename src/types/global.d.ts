@@ -30,6 +30,8 @@ interface IUser {
 
 /** Common properties to saved channels from any platform */
 interface ISavedChannel {
+	/** The URL to the profile picture of this streamer. */
+	avatar: string;
 	/**
 	 * Whether this channel is pinned on the sidebar.
 	 *
@@ -116,18 +118,24 @@ interface IChannelData {
 interface ITwitchChannelData extends IChannelData {
 	/** Numeric ID of a Twitch Channel. */
 	id: number;
+	/** Twitch Channel */
+	platform: "twitch";
 }
 
 /** Youtube Specific Channel Data */
 interface IYoutubeChannelData extends IChannelData {
 	/** String ID of a Youtube Channel. */
 	id: string;
+	/** Youtube Channel */
+	platform: "youtube";
 }
 
 /** Kick Specific Channel Data */
 interface IKickChannelData extends IChannelData {
 	/** Numeric ID of a Kick Channel. */
 	id: number;
+	/** Kick Channel */
+	platform: "kick";
 }
 
 /** Cached Channel Data */
