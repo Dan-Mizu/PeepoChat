@@ -4,7 +4,7 @@ import FadeTransition from "src/components/ui/transitions/FadeTransition.vue";
 import Loading from "src/components/states/loading-states/Loading.vue";
 import NoChatSelected from "src/components/states/empty-states/NoChatSelected.vue";
 import NoMentions from "src/components/states/empty-states/NoMentions.vue";
-import Navigation from "src/components/views/HomeView/Navigation/Navigation.vue";
+import Sidebar from "src/components/views/HomeView/Sidebar/Sidebar.vue";
 import Chat from "src/components/views/HomeView/Chat/Chat.vue";
 
 import useStore from "src/store/store";
@@ -29,8 +29,8 @@ const activeChatComponent = computed(() => {
 <template>
 	<KeepAlive>
 		<div class="md:static h-full flex md:flex-row overflow-hidden">
-			<!--navigation-bar-->
-			<Navigation
+			<!--sidebar-->
+			<Sidebar
 				v-if="store.settings.showSidebar"
 				class="md:-order-none"
 			/>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import ChannelButton from "src/components/views/HomeView/Navigation/ChannelButton.vue";
-import AccountButton from "src/components/views/HomeView/Navigation/AccountButton.vue";
+import ChannelButton from "src/components/views/HomeView/Sidebar/ChannelButton.vue";
+import AccountButton from "src/components/views/HomeView/Sidebar/AccountButton.vue";
 import IconButton from "src/components/ui/inputs/IconButton.vue";
-import NavLink from "src/components/views/HomeView/Navigation/NavLink.vue";
+import NavLink from "src/components/views/HomeView/Sidebar/NavLink.vue";
 import AddChannelModal from "./AddChannelModal.vue";
 
 import {
@@ -32,9 +32,9 @@ const openAddChannelModel = ref(false);
 	<div
 		class="w-11 h-full py-7 px-5 flex flex-col items-center transition-all duration-500"
 	>
-		<!--main navigation-->
+		<!--main Sidebar-->
 		<div class="grow">
-			<nav aria-label="Main navigation">
+			<nav aria-label="Main Sidebar">
 				<ul>
 					<li v-for="(channel, _index) in store.user.channels">
 						<ChannelButton
@@ -60,9 +60,9 @@ const openAddChannelModel = ref(false);
 			</nav>
 		</div>
 
-		<!--secondary navigation-->
+		<!--secondary Sidebar-->
 		<div>
-			<nav aria-label="Extra navigation">
+			<nav aria-label="Extra Sidebar">
 				<!--toggle dark mode button-->
 				<NavLink
 					:icon="
