@@ -112,7 +112,7 @@ const togglePin = (): void => {
 
 <template>
 	<div v-if="channelData" class="relative">
-		<Popover placement="right" :disabled="dropdownActive">
+		<Popover placement="right" :distance="20" :disabled="dropdownActive">
 			<!-- popover content -->
 			<template #content>
 				{{

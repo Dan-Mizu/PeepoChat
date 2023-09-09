@@ -28,7 +28,7 @@ export const app = createApp(App)
 	.use(vClickOutside)
 	.use(FloatingVue, {
 		themes: {
-			tooltip: {
+			popover: {
 				$resetCss: true,
 				triggers: ["hover"],
 				delay: {

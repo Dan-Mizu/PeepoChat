@@ -80,32 +80,40 @@ const channel = <ITwitchChannelData | IYoutubeChannelData | IKickChannelData>(
 				<span
 					class="flex float-right text-xs items-center xs:flex md:hidden"
 				>
-					<Popover class="px-3 py-2 m-0 text-xs">
+					<Popover class="px-3 py-2 text-xs">
 						<template #content>
-							{{ "Category: " + channel.stream.category }}
+							{{
+								channel.stream.category != ""
+									? "Category: " + channel.stream.category
+									: "No Category"
+							}}
 						</template>
 						<IconDeviceGamePad
 							class="text-light-text dark:text-dark-text transition duration-500 h-5]"
 						/>
 					</Popover>
-					<Popover class="px-3 py-2 m-0 text-xs">
+					<Popover class="px-3 py-2 text-xs">
 						<template #content>
 							{{
-								"Viewers: " +
-								channel.stream.viewers.toLocaleString()
+								channel.stream.viewers > 0
+									? "Viewers: " +
+									  channel.stream.viewers.toLocaleString()
+									: "No Viewers"
 							}}
 						</template>
 						<IconUsers
 							class="text-light-text dark:text-dark-text transition duration-500 h-[20px]"
 						/>
 					</Popover>
-					<Popover class="px-3 py-2 m-0 text-xs">
+					<Popover class="px-3 py-2 text-xs">
 						<template #content>
 							{{
-								"Uptime: " +
-								new Date(channel.stream.uptime * 1000)
-									.toISOString()
-									.slice(11, 16)
+								channel.stream.uptime > 0
+									? "Uptime: " +
+									  new Date(channel.stream.uptime * 1000)
+											.toISOString()
+											.slice(11, 16)
+									: "Just Started"
 							}}
 						</template>
 						<IconClockHour4

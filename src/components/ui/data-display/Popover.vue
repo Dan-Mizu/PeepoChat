@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-	<VTooltip>
+	<VTooltip theme="popover" :skidding="0">
 		<template #popper>
 			<div
 				:class="[
@@ -16,7 +16,7 @@ const props = defineProps<{
 					!store.settings.darkMode
 						? 'bg-light-secondary text-light-text'
 						: 'bg-dark-secondary text-dark-text',
-					'm-4 p-3 border-none rounded-md shadow opacity-100 transition-all duration-500',
+					'p-3 rounded-md shadow transition-all duration-500',
 				]"
 			>
 				<slot name="content" />
@@ -27,15 +27,11 @@ const props = defineProps<{
 </template>
 
 <style>
-.v-popper--theme-tooltip .v-popper__inner {
-	@apply bg-transparent m-0 p-0;
-}
-
-.v-popper--theme-tooltip .v-popper__arrow-outer {
+.v-popper--theme-popover .v-popper__arrow-outer {
 	@apply hidden;
 }
 
-.v-popper--theme-tooltip .v-popper__arrow-inner {
+.v-popper--theme-popover .v-popper__arrow-inner {
 	@apply hidden;
 }
 </style>
