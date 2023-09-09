@@ -30,15 +30,17 @@ const openAddChannelModel = ref(false);
 
 <template>
 	<div
-		class="w-11 h-full py-7 px-5 flex flex-col items-center transition-all duration-500"
+		class="w-11 h-full py-7 flex flex-col items-center transition-all duration-500"
 	>
-		<!--main Sidebar-->
-		<div class="grow">
-			<nav aria-label="Main Sidebar">
+		<!-- Channels -->
+		<div
+			class="grow w-full px-5 pt-3 flex overflow-y-scroll scrollbar-hidden justify-center"
+		>
+			<nav aria-label="Channels">
 				<ul>
 					<li v-for="(channel, _index) in store.user.channels">
 						<ChannelButton
-							id="channel-button"
+							label="channel-button"
 							class="block"
 							aria-labelledby="channel-button"
 							:channel-id="channel.id"
@@ -60,9 +62,9 @@ const openAddChannelModel = ref(false);
 			</nav>
 		</div>
 
-		<!--secondary Sidebar-->
-		<div>
-			<nav aria-label="Extra Sidebar">
+		<!-- Options and Personal Views -->
+		<div class="mt-5">
+			<nav aria-label="Personal Settings">
 				<!--toggle dark mode button-->
 				<NavLink
 					:icon="

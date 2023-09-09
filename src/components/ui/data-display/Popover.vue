@@ -27,11 +27,7 @@ const props = defineProps<{
 </template>
 
 <style>
-.v-popper--theme-popover .v-popper__arrow-outer {
-	@apply hidden;
-}
-
-.v-popper--theme-popover .v-popper__arrow-inner {
+.v-popper--theme-popover .v-popper__arrow-container {
 	@apply hidden;
 }
 </style>

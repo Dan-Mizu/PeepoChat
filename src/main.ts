@@ -39,6 +39,15 @@ export const app = createApp(App)
 				placement: "bottom",
 				html: true,
 			},
+			dropdownlist: {
+				$resetCss: true,
+				triggers: [],
+				delay: {
+					show: 0,
+					hide: 0,
+				},
+				html: true,
+			},
 		},
 	})
 	.use(Toast, {

@@ -54,26 +54,28 @@ const handleClickOutside = (event: Event) => {
 			<SidebarButton />
 		</div>
 
-		<!-- Chat Box-->
-		<div v-if="store.user.id" class="grow mr-5 self-end relative">
-			<!-- Text Input -->
-			<Textarea
-				v-model="value"
-				:value="value"
-				class="resize-none scrollbar-hidden"
-				auto-resize
-				cols="30"
-				rows="1"
-				:placeholder="Lang.chatFooter.chatBox.placeholder"
-				:aria-label="Lang.chatFooter.chatBox.placeholder"
-			/>
+		<!-- chat bar -->
+		<div class="grow mr-5 self-end relative">
+			<!-- Authenticated -->
+			<template v-if="store.user.id != null">
+				<!-- Text Input -->
+				<Textarea
+					v-model="value"
+					:value="value"
+					class="resize-none scrollbar-hidden"
+					auto-resize
+					cols="30"
+					rows="1"
+					:placeholder="Lang.chatFooter.chatBox.placeholder"
+					:aria-label="Lang.chatFooter.chatBox.placeholder"
+				/>
 
-			<!-- Buttons -->
-			<div
-				class="absolute flex h-full right-0 top-0 m-auto items-center mr-3"
-			>
-				<!-- attachments -->
-				<!-- <IconButton
+				<!-- Buttons -->
+				<div
+					class="absolute flex h-full right-0 top-0 m-auto items-center mr-3"
+				>
+					<!-- attachments -->
+					<!-- <IconButton
 					:title="Lang.chatFooter.chatBox.openAttachmentsModal"
 					:aria-label="Lang.chatFooter.chatBox.openAttachmentsModal"
 					@click="openAttachmentsModal = true"
@@ -84,43 +86,45 @@ const handleClickOutside = (event: Event) => {
 					/>
 				</IconButton> -->
 
-				<!--emoji button-->
-				<IconButton
-					:title="Lang.chatFooter.chatBox.openEmojiPicker"
-					:aria-label="Lang.chatFooter.chatBox.openEmojiPicker"
-					@click="showPicker = !showPicker"
-					class="toggle-picker-button group w-7 h-7"
-				>
-					<IconCircleX
-						v-if="showPicker"
-						class="w-[20px] h-[20px] text-light-tertiary dark:text-dark-tertiary group-hover:text-light-accent dark:group-hover:text-dark-accent transition-all duration-500"
-					/>
-					<IconMoodSmileBeam
-						v-else
-						class="w-[20px] h-[20px] text-light-tertiary dark:text-dark-tertiary group-hover:text-light-accent dark:group-hover:text-dark-accent transition-all duration-500"
-					/>
-				</IconButton>
-
-				<!--emoji picker-->
-				<ScaleTransition>
-					<div
-						v-click-outside="handleClickOutside"
-						v-show="showPicker"
-						class="absolute z-10 bottom-[55px] right-0 mt-2"
+					<!--emoji button-->
+					<IconButton
+						:title="Lang.chatFooter.chatBox.openEmojiPicker"
+						:aria-label="Lang.chatFooter.chatBox.openEmojiPicker"
+						@click="showPicker = !showPicker"
+						class="toggle-picker-button group w-7 h-7"
 					>
-						<div role="none">
-							<EmojiPicker :show="showPicker" />
+						<IconCircleX
+							v-if="showPicker"
+							class="w-[20px] h-[20px] text-light-tertiary dark:text-dark-tertiary group-hover:text-light-accent dark:group-hover:text-dark-accent transition-all duration-500"
+						/>
+						<IconMoodSmileBeam
+							v-else
+							class="w-[20px] h-[20px] text-light-tertiary dark:text-dark-tertiary group-hover:text-light-accent dark:group-hover:text-dark-accent transition-all duration-500"
+						/>
+					</IconButton>
+
+					<!--emoji picker-->
+					<ScaleTransition>
+						<div
+							v-click-outside="handleClickOutside"
+							v-show="showPicker"
+							class="absolute z-10 bottom-[55px] right-0 mt-2"
+						>
+							<div role="none">
+								<EmojiPicker :show="showPicker" />
+							</div>
 						</div>
-					</div>
-				</ScaleTransition>
-			</div>
-		</div>
-		<div v-else-if="!store.user.id" class="grow mr-5 self-end relative">
-			<div
-				class="resize-none max-w-full w-full px-5 py-4 rounded-sm content-center text-sm outline-none text-light-text-placeholder dark:text-dark-text-placeholder bg-light-secondary dark:bg-dark-secondary transition-all duration-500 text-center select-none"
-			>
-				{{ Lang.chatFooter.notAuthenticated.description }}
-			</div>
+					</ScaleTransition>
+				</div>
+			</template>
+			<!-- Not Authenticated -->
+			<template v-else>
+				<div
+					class="py-4 rounded-sm text-sm text-center select-none text-light-text-placeholder dark:text-dark-text-placeholder bg-light-secondary dark:bg-dark-secondary transition-all duration-500"
+				>
+					{{ Lang.chatFooter.notAuthenticated.description }}
+				</div>
+			</template>
 		</div>
 
 		<!-- send message button -->

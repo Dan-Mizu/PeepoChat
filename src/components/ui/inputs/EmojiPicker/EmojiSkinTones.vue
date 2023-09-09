@@ -29,23 +29,23 @@ const handleChangeSkinTone = (tone: string) => {
       <FadeTransition>
         <div v-if="select" class="h-5 max-h-fit">
           <button
-            class="w-6 h-5 bg-[#60463A] hover:scale-110 duration-500 ease-in"
+            class="w-6 h-5 bg-[#60463A] hover:scale-110 duration-500"
             @click="handleChangeSkinTone('1f3ff')"
           ></button>
           <button
-            class="w-6 h-5 bg-[#A86637] hover:scale-110 duration-500 ease-in"
+            class="w-6 h-5 bg-[#A86637] hover:scale-110 duration-500"
             @click="handleChangeSkinTone('1f3fe')"
           ></button>
           <button
-            class="w-6 h-5 bg-[#C88E62] hover:scale-110 duration-500 ease-in"
+            class="w-6 h-5 bg-[#C88E62] hover:scale-110 duration-500"
             @click="handleChangeSkinTone('1f3fd')"
           ></button>
           <button
-            class="w-6 h-5 bg-[#FFDFBD] hover:scale-110 duration-500 ease-in"
+            class="w-6 h-5 bg-[#FFDFBD] hover:scale-110 duration-500"
             @click="handleChangeSkinTone('1f3fc')"
           ></button>
           <button
-            class="w-6 h-5 bg-[#FFD225] hover:scale-110 duration-500 ease-in"
+            class="w-6 h-5 bg-[#FFD225] hover:scale-110 duration-500"
             @click="handleChangeSkinTone('neutral')"
           ></button>
         </div>
@@ -57,7 +57,7 @@ const handleChangeSkinTone = (tone: string) => {
       <Typography variant="body-2">Skin tone:</Typography>
       <button
         @click="select = !select"
-        class="w-5 h-5 ml-3 rounded-full hover:scale-110 duration-500 ease-in"
+        class="w-5 h-5 ml-3 rounded-full hover:scale-110 duration-500"
         :class="[skinToneColor[store.emojiSkinTone]]"
       ></button>
     </div>

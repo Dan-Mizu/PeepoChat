@@ -22,12 +22,12 @@ import {
 
 const props = defineProps<
 	| {
-			id: string;
+			label: string;
 			channelId: number;
 			channelPlatform: "twitch" | "kick";
 	  }
 	| {
-			id: string;
+			label: string;
 			channelId: string;
 			channelPlatform: "youtube";
 	  }
@@ -45,7 +45,7 @@ const showDropdown = () => {
 // (event) close dropdown menu when clicking outside
 const handleCloseOnClickOutside = (event: Event) => {
 	if (
-		!["channel-avatar", "channel-button"].includes(
+		!["channel-dropdown", "channel-button"].includes(
 			(event.target as HTMLButtonElement).id
 		)
 	) {
@@ -129,7 +129,7 @@ const togglePin = (): void => {
 
 			<!--toggle dropdown button-->
 			<button
-				:id="props.id + '-button'"
+				:id="props.label + '-button'"
 				@click="
 					() =>
 						(store.activeView = {
@@ -194,48 +194,55 @@ const togglePin = (): void => {
 
 			<!--dropdown menu-->
 			<Dropdown
-				:id="props.id + '-dropdown'"
-				:aria-labelledby="props.id + '-button'"
+				:id="channelPlatform + '-' + channelId + '-' + 'dropdown'"
+				:label="props.label + '-dropdown'"
+				:aria-labelledby="props.label + '-button'"
+				placement="right"
+				:distance="20"
+				:skidding="-40"
 				:show="dropdownActive"
-				:position="['bottom-0', 'left-[40px]', 'left-[-77px]']"
 				:handle-click-outside="handleCloseOnClickOutside"
 				:close-dropdown="closeDropdown"
 			>
-				<!-- pin/unpin channel -->
-				<DropdownLink
-					label="Pin"
-					:handle-click="closeDropdown"
-					tabindex="0"
-					@click="togglePin()"
-				>
-					<div v-if="!savedChannel?.pinned" class="flex">
-						<IconPinFilled
-							class="h-5 w-5 mr-3 text-light-text dark:text-dark-text transition duration-500"
-						/>
-						<span>Pin</span>
-					</div>
-					<div v-else class="flex">
-						<IconPinnedOff
-							class="h-5 w-5 mr-3 text-light-text dark:text-dark-text transition duration-500"
-						/>
-						<span>Remove Pin</span>
-					</div>
-				</DropdownLink>
+				<template #content>
+					<!-- pin/unpin channel -->
+					<template v-if="!savedChannel?.pinned">
+						<DropdownLink
+							label="Pin Channel"
+							:handle-click="closeDropdown"
+							@click="togglePin"
+						>
+							<IconPinFilled
+								class="h-5 w-5 mr-3 transition duration-500"
+							/>
+							<span>Pin</span>
+						</DropdownLink>
+					</template>
+					<template v-else>
+						<DropdownLink
+							label="Unpin Channel"
+							:handle-click="closeDropdown"
+							@click="togglePin"
+						>
+							<IconPinnedOff
+								class="h-5 w-5 mr-3 transition duration-500"
+							/>
+							<span>Remove Pin</span>
+						</DropdownLink>
+					</template>
 
-				<!-- remove channel -->
-				<DropdownLink
-					label="Remove"
-					:handle-click="closeDropdown"
-					tabindex="0"
-					@click="removeChannel"
-				>
-					<div class="flex">
+					<!-- remove channel -->
+					<DropdownLink
+						label="Remove Channel"
+						:handle-click="closeDropdown"
+						@click="removeChannel"
+					>
 						<IconCircleMinus
-							class="h-5 w-5 mr-3 text-light-text dark:text-dark-text transition duration-500"
+							class="h-5 w-5 mr-3 transition duration-500"
 						/>
 						<span>Remove Channel</span>
-					</div>
-				</DropdownLink>
+					</DropdownLink>
+				</template>
 			</Dropdown>
 		</Popover>
 	</div>

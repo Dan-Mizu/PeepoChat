@@ -18,13 +18,13 @@ const props = defineProps<{
 		@click="$emit('button-clicked', $event)"
 		tabindex="0"
 		:class="[
-			'group p-3 flex justify-center items-center rounded-sm transition-all duration-200 outline-none select-none',
+			'group p-3 flex justify-center items-center rounded-sm transition-all duration-500 outline-none select-none',
 			props.class,
 			props.variant === 'outlined'
 				? props.color === 'success'
 					? 'bg-opacity-0 border border-gray-100 hover:border-green-300 hover:bg-green-300 dark:hover:border-green-400 dark:hover:bg-green-400 dark:focus:border-green-400 dark:focus:bg-green-400 focus:bg-green-300'
 					: props.color === 'danger'
-					? 'group py-2 px-4 border rounded-sm border-gray-200 dark:border-white dark:border-opacity-70 focus:outline-none focus:border-red-100  focus:bg-red-100 hover:bg-red-100 hover:border-red-100 dark:hover:border-red-400 dark:hover:bg-red-400 dark:focus:bg-red-400 dark:focus:border-red-400 transition-all duration-200 outline-none'
+					? 'group py-2 px-4 border rounded-sm border-gray-200 dark:border-white dark:border-opacity-70 focus:outline-none focus:border-red-100  focus:bg-red-100 hover:bg-red-100 hover:border-red-100 dark:hover:border-red-400 dark:hover:bg-red-400 dark:focus:bg-red-400 dark:focus:border-red-400 transition-all duration-500 outline-none'
 					: 'bg-opacity-0 border border-gray-100 dark:border-gray-700 hover:border-indigo-300 hover:bg-indigo-300 dark:hover:border-indigo-400 dark:hover:bg-indigo-400 dark:focus:border-indigo-400 dark:focus:bg-indigo-400 focus:bg-indigo-300'
 				: props.variant === 'ghost'
 				? props.color === 'success'

@@ -342,7 +342,7 @@ export const channel = {
 				// update existing channel data
 				if (channelData) {
 					// update username
-					channelData.username = response.broadcaster_login;
+					channelData.username = response.broadcaster_name;
 
 					// update stream data
 					channelData.stream = {
@@ -383,7 +383,7 @@ export const channel = {
 				}) as Promise<ITwitchUserResponse>
 			).then((response) => {
 				// TODO: Channel Data should exist by now due to previous API call, so figure out a better way to handle this~
-				if (channelData) {
+				if (channelData) { 
 					// update display name
 					channelData.username = response.display_name;
 

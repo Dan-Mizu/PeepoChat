@@ -28,17 +28,14 @@ const activeChatComponent = computed(() => {
 
 <template>
 	<KeepAlive>
-		<div class="md:static h-full flex md:flex-row overflow-hidden">
+		<div class="static h-full flex flex-row overflow-hidden">
 			<!--sidebar-->
-			<Sidebar
-				v-if="store.settings.showSidebar"
-				class="md:-order-none"
-			/>
+			<Sidebar v-if="store.settings.showSidebar" class="-order-none" />
 
 			<!--chat-->
 			<div
 				id="mainContent"
-				class="md:static grow h-full md:w-fit scrollbar-hidden bg-light-primary dark:bg-dark-primary transition-all duration-500"
+				class="static grow h-full w-fit scrollbar-hidden bg-light-primary dark:bg-dark-primary transition-all duration-500"
 				role="region"
 			>
 				<FadeTransition name="fade" mode="out-in" time="0.05s">

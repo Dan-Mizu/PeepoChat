@@ -15,7 +15,7 @@ const transitionTime = props.time ? props.time : "0.2s";
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-	transition: opacity v-bind(transitionTime) ease-in;
+	transition: opacity v-bind(transitionTime);
 }
 
 .fade-enter-from,

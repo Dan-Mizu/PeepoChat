@@ -62,24 +62,26 @@ const avatar = computed(() => {
 
 		<!--dropdown menu-->
 		<Dropdown
-			:id="props.id + '-dropdown'"
+			id="profile-dropdown"
+			:label="props.id + '-dropdown'"
 			:aria-labelledby="props.id + '-button'"
+			placement="right"
+			:distance="25"
+			:skidding="-30"
 			:show="dropdownActive"
-			:position="['bottom-0', 'left-[40px]', 'left-[-77px]']"
 			:handle-click-outside="clickOutside"
 			:close-dropdown="closeDropdown"
 		>
-			<DropdownLink
-				label="Sign In"
-				:handle-click="closeDropdown"
-				tabindex="0"
-				@click="toast.error(Lang.error.unimplemented)"
-			>
-				<IconSquareRoundedArrowRight
-					class="h-5 w-5 mr-3 text-light-text dark:text-dark-text"
-				/>
-				{{ Lang.accountDropdown.anon.signIn }}
-			</DropdownLink>
+			<template #content>
+				<DropdownLink
+					label="Sign In"
+					:handle-click="closeDropdown"
+					@click="toast.error(Lang.error.unimplemented)"
+				>
+					<IconSquareRoundedArrowRight class="h-5 w-5 mr-3" />
+					{{ Lang.accountDropdown.anon.signIn }}
+				</DropdownLink>
+			</template>
 		</Dropdown>
 	</div>
 </template>

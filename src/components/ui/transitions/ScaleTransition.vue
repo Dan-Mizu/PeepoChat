@@ -10,7 +10,7 @@
 }
 
 .scale-leave-active {
-  transition: all 0.075s ease-in;
+  transition: all 0.075s;
 }
 
 .scale-enter-from {

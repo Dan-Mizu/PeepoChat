@@ -1,63 +1,61 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted} from "vue";
+import { onMounted, onUnmounted } from "vue";
 
 import ScaleTransition from "src/components/ui/transitions/ScaleTransition.vue";
 
+import useStore from "src/store/store";
+const store = useStore();
+
 const props = defineProps<{
-  show: boolean;
-  handleClickOutside: any;
-  preventClickOutside?: boolean;
-  coordinates?: {
-    left?: string;
-    right?: string;
-    top?: string;
-    bottom?: string;
-  };
-  position: string[];
-  closeDropdown: () => void;
+	id: string;
+	label: string;
+	show: boolean;
+	class?: string;
+	handleClickOutside: any;
+	closeDropdown: () => void;
 }>();
 
 // (event) close dropdown when typing esc button.
 const handleCloseOnEscape = (event: KeyboardEvent) => {
-  if (["Escape", "Esc"].includes(event.key)) {
-    props.closeDropdown();
-  }
+	if (["Escape", "Esc"].includes(event.key)) {
+		props.closeDropdown();
+	}
 };
 
 onMounted(() => {
-  // set the handleCloseOnEscape when mounting the component.
-  document.addEventListener("keydown", handleCloseOnEscape);
+	// set the handleCloseOnEscape when mounting the component.
+	document.addEventListener("keydown", handleCloseOnEscape);
 });
 
 onUnmounted(() => {
-  // remove handleCloseOnEscape when unmounting the component.
-  document.removeEventListener("keydown", handleCloseOnEscape);
+	// remove handleCloseOnEscape when unmounting the component.
+	document.removeEventListener("keydown", handleCloseOnEscape);
 });
 </script>
 
 <template>
-  <div>
-    <div
-      v-if="props.show"
-      class="fixed left-0 top-0 z-[50] w-full h-full"
-    ></div>
-
-    <ScaleTransition>
-      <div
-        :class="props.position"
-        :style="props.coordinates"
-        v-show="props.show"
-        v-click-outside="props.handleClickOutside"
-        class="absolute z-[100] w-[200px] mt-2 rounded-sm bg-light-primary dark:bg-dark-primary shadow-lg border border-light-secondary dark:border-dark-primary focus:outline-none"
-        role="menu"
-        aria-orientation="vertical"
-        aria-labelledby="menu-button"
-        tabindex="-1"
-      >
-        <div role="none">
-          <slot></slot>
-        </div>
-      </div>
-    </ScaleTransition>
-  </div>
+	<VDropdown
+		theme="dropdownlist"
+		:show-group="props.id"
+		:auto-hide="false"
+		:shown="show"
+	>
+		<template #popper>
+			<ScaleTransition>
+				<div
+					v-click-outside="props.handleClickOutside"
+					:class="[
+						props.class,
+						!store.settings.darkMode
+							? 'bg-light-secondary text-light-text'
+							: 'bg-dark-secondary text-dark-text',
+						'w-[200px] rounded-sm shadow-lg transition-all duration-500 focus:outline-none',
+					]"
+				>
+					<slot name="content" />
+				</div>
+			</ScaleTransition>
+		</template>
+		<slot />
+	</VDropdown>
 </template>
