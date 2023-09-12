@@ -7,7 +7,9 @@
 <p align="center">
     <b>A web-based, cross-platform alternative to Chatterino.</b>
     </br>
-    Automatically links together Twitch, Kick, and Youtube streamer chats that you follow into one app. Supports 7tv emotes and customizations.
+    Supports Twitch, Youtube, and Kick Chats- with 7tv (Twitch/Youtube) and Truffle (Youtube) built-in.
+    </br>
+> ⚠️ Only Twitch and 7tv will be supported in Alpha builds.
 </p>
 
 <p align="center">
@@ -36,11 +38,8 @@
 ## 🏗️ **Frameworks**
 
 -   [Vue](https://vuejs.org/)
-
-## 🧰 **Tools**
-
+-   [Nuxt](https://nuxt.com/)
 -   [Tauri](https://tauri.app/)
--   [Vite](https://vitejs.dev/)
 
 ## 🗳️ **Contribute**
 

@@ -73,12 +73,14 @@ interface IActiveView {
 	/**
 	 * The current view's type.
 	 *
-	 * - "chat" represents the chat of a certain channel. The data property then describes the channel.
+	 * - `chat` represents the chat of a certain channel. The data property then describes the channel.
 	 *
-	 * - "mentions" represents the page that shows the user's pings/mentions in any chat.
+	 * - `loading` represents that the view is currently loading.
+	 *
+	 * - `mentions` represents the page that shows the user's pings/mentions in any chat.
 	 *
 	 */
-	type: "loading" | "chat" | "mentions";
+	type: "chat" | "loading" | "mentions";
 	/** Holds any data that may be useful for the current view, such as the active channel's ID and platform. */
 	data?: IActiveChat;
 }

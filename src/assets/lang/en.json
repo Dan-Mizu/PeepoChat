@@ -1,0 +1,38 @@
+{
+	"title": "PeepoChat",
+	"sidebar": {
+		"toggle_button": "Sidebar Toggle Button",
+		"channel": {
+			"dropdown": {
+				"pin": "Pin Channel",
+				"unpin": "Unpin Channel",
+				"delete": "Remove Channel"
+			}
+		},
+		"add_channel_button": "Add Channel Button",
+		"account": {
+			"dropdown": {
+				"settings": "Settings",
+				"sign_in": "Sign In",
+				"sign_out": "Sing Out"
+			}
+		},
+		"mentions_button": "Mentions Button",
+		"theme_toggle_button": "Theme Toggle Button"
+	},
+	"generic": {
+		"icon_button": "Button",
+		"link_button": "Link Button",
+		"toggle_button": "Toggle Button"
+	},
+	"view": {
+		"no_channel_selected": {
+			"header": "No Channel Selected",
+			"description": "Select or add a channel using the Sidebar."
+		},
+		"no_mentions": {
+			"header": "No Mentions",
+			"description": "No one has mentioned you yet."
+		}
+	}
+}

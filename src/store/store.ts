@@ -1,14 +1,13 @@
 import { defineStore } from "pinia";
-import type { Ref } from "vue";
-import { ref } from "vue";
 
-import defaults from "src/store/defaults";
+// default state values
+import defaults from "./defaults";
 
-const useStore = defineStore("chat", () => {
-	// local storage
+export default defineStore("chat", () => {
+	// grab current local storage
 	const storage = JSON.parse(localStorage.getItem("chat") || "{}");
 
-	// data refs
+	// values
 	const user: Ref<IUser> = ref(storage.user || defaults.user);
 	const channelData: Ref<IAllChannelData> = ref(
 		storage.channelData || defaults.channelData
@@ -18,10 +17,11 @@ const useStore = defineStore("chat", () => {
 	);
 	const recentEmoji: Ref<IEmoji[]> = ref(storage.recentEmoji || []);
 	const emojiSkinTone: Ref<string> = ref(storage.emojiSkinTone || "neutral");
-
-	// ui refs
 	const activeView: Ref<IActiveView> = ref({ type: "chat" });
 
+	// methods
+
+	// return public references
 	return {
 		user,
 		channelData,
@@ -31,5 +31,3 @@ const useStore = defineStore("chat", () => {
 		activeView,
 	};
 });
-
-export default useStore;
