@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // views
 import LoadingView from "~/components/views/LoadingView.vue";
+import NoChannelSelectedView from "~/components/views/NoChannelSelectedView.vue";
 import NoMentionsView from "~/components/views/NoMentionsView.vue";
 
 // get state
@@ -13,15 +14,15 @@ const activeView = computed(() => {
 	// loading
 	if (store.activeView.type === "loading") return LoadingView;
 	// chat page
-	// else if (store.activeView.type === "chat") {
-	// 	if (store.activeView.data) return Chat;
-	// 	else return NoChatSelected;
-	// }
+	else if (store.activeView.type === "chat") {
+		// if (store.activeView.data) return Chat;
+		// else return NoChannelSelectedView;
+		return NoChannelSelectedView;
+	}
 	// mentions page
 	else if (store.activeView.type === "mentions") return NoMentionsView;
 	// fallback
-	// else return NoChatSelected;
-	else return NoMentionsView;
+	else return NoChannelSelectedView;
 });
 </script>
 

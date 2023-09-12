@@ -31,6 +31,7 @@
 			"description": "Select or add a channel using the Sidebar."
 		},
 		"no_mentions": {
+			"title": "Mentions",
 			"header": "No Mentions",
 			"description": "No one has mentioned you yet."
 		}
