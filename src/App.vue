@@ -1,58 +1,35 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
-import FadeTransition from "src/components/ui/transitions/FadeTransition.vue";
-
-import useStore from "src/store/store";
+// get state
+import useStore from "~/store/store";
 const store = useStore();
 
-import { channel } from "./utils";
-
-// update localStorage with state changes
+// store state in local storage on every update
 store.$subscribe((_mutation, state) => {
 	localStorage.setItem("chat", JSON.stringify(state));
 });
 
-// here we load the data from the server.
-onMounted(async () => {
-	// start in loading view
-	store.activeView.type = "loading";
-
-	// get channel data for saved channels
-	try {
-		await channel.updateAllData();
-	} catch (e) {}
-
-	// artificial delay
-	const delay = (ms: number) =>
-		new Promise((resolve) => setTimeout(resolve, ms));
-	await delay(800);
-
-	// go to chat view
-	store.activeView.type = "chat";
-});
-
 // add events when the component mounts.
 onMounted(async () => {
-	window.addEventListener("resize", resizeWindow);
-	window.addEventListener("contextmenu", preventContextMenu);
-	window
-		.matchMedia("(prefers-color-scheme: dark)")
-		.addEventListener("change", updateDarkMode);
+	// run client-side only
+	if (process.browser) {
+		window.addEventListener("resize", resizeWindow);
+		window.addEventListener("contextmenu", preventContextMenu);
+	}
 });
 
 // remove events when un-mounting the component.
 onUnmounted(() => {
-	window.removeEventListener("resize", resizeWindow);
-	window.removeEventListener("contextmenu", preventContextMenu);
-	window
-		.matchMedia("(prefers-color-scheme: dark)")
-		.removeEventListener("change", updateDarkMode);
+	// run client-side only
+	if (process.browser) {
+		window.removeEventListener("resize", resizeWindow);
+		window.removeEventListener("contextmenu", preventContextMenu);
+	}
 });
 
-// the app height
+// reference to window height
 const height = ref(`${window.innerHeight}px`);
 
-// change the app height to the window hight.
+// update height reference
 const resizeWindow = () => {
 	height.value = `${window.innerHeight}px`;
 };
@@ -61,24 +38,41 @@ const resizeWindow = () => {
 const preventContextMenu = (event: MouseEvent) => {
 	event.preventDefault();
 };
-
-// update dark mode setting
-const updateDarkMode = (event: MediaQueryListEvent) => {
-	store.settings.darkMode = event.matches ? true : false;
-};
 </script>
 
 <template>
-	<div :class="{ dark: store.settings.darkMode }">
-		<div
-			class="bg-light-secondary dark:bg-dark-secondary transition-colors duration-500"
-			:style="{ height: height }"
-		>
-			<router-view v-slot="{ Component }">
-				<FadeTransition>
-					<component :is="Component" />
-				</FadeTransition>
-			</router-view>
-		</div>
+	<!-- full height div -->
+	<div :style="{ height: height }">
+		<NuxtLayout />
 	</div>
 </template>
+
+<style>
+/* debug */
+/* * {
+	@apply outline outline-1 outline-red-500;
+} */
+
+/* all elements should transition colors at 500ms */
+* {
+	@apply transition-colors duration-500;
+}
+
+/* default background colors */
+:root {
+	@apply bg-light-primary text-light-text placeholder:text-light-text-placeholder;
+}
+.dark {
+	@apply bg-dark-primary text-dark-text placeholder:text-dark-text-placeholder;
+}
+
+/* hidden scrollbar */
+.scrollbar-hidden::-webkit-scrollbar {
+	@apply hidden;
+}
+
+.scrollbar-hidden {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+</style>

@@ -35,7 +35,7 @@ export default {
 				"youtube-background": "#FF0000",
 				"youtube-icon": "#ffffff",
 				"kick-background": "#53FC18",
-				"kick-icon": "#000000"
+				"kick-icon": "#000000",
 			},
 
 			spacing: {

@@ -8,12 +8,6 @@
 			"type": "node-terminal"
 		},
 		{
-			"name": "Dev (Host) | Web",
-			"command": "npm run dev:host",
-			"request": "launch",
-			"type": "node-terminal"
-		},
-		{
 			"name": "Preview Build | Web",
 			"command": "npm run preview",
 			"request": "launch",
