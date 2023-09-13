@@ -1,4 +1,7 @@
 <script setup lang="ts">
+// localization
+const localize = useI18n().t;
+
 // get state
 import useStore from "~/store/store";
 const store = useStore();
@@ -15,6 +18,11 @@ onMounted(async () => {
 		window.addEventListener("resize", resizeWindow);
 		window.addEventListener("contextmenu", preventContextMenu);
 	}
+
+	// set default title
+	useHead({
+		title: localize("title")
+	})
 });
 
 // remove events when un-mounting the component.
