@@ -20,5 +20,8 @@
         "thiserror",
         "vueuse",
         "webp"
+    ],
+    "i18n-ally.localesPaths": [
+        "src/assets/lang"
     ]
 }

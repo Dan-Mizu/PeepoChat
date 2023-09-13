@@ -4,6 +4,7 @@
 		"rust-lang.rust-analyzer",
 		"Vue.volar",
 		"bradlc.vscode-tailwindcss",
-		"antfu.iconify"
+		"antfu.iconify",
+		"lokalise.i18n-ally"
 	]
 }
