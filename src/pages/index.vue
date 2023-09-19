@@ -30,7 +30,7 @@ const activeView = computed(() => {
 	<KeepAlive>
 		<div class="static h-full flex flex-row overflow-hidden">
 			<!-- Sidebar -->
-			<Sidebar v-if="store.settings.showSidebar" class="-order-none" />
+			<Sidebar v-if="store.settings.showSidebar" />
 
 			<!-- Main View -->
 			<div
