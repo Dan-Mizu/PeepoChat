@@ -5,6 +5,10 @@ import { DropdownItem } from "@nuxt/ui/dist/runtime/types/dropdown";
 // localization
 const localize = useI18n().t;
 
+const props = defineProps<{
+	channelData: ISavedTwitchChannel | ISavedKickChannel | ISavedYoutubeChannel;
+}>();
+
 // dropdown contents
 const dropdownContent: Ref<DropdownItem[][]> = ref([
 	[
@@ -25,6 +29,7 @@ const dropdownContent: Ref<DropdownItem[][]> = ref([
 <template>
 	<Dropdown :items="dropdownContent" disabled>
 		<AvatarButton
+			:avatar="props.channelData.avatar"
 			ring
 			ringStyle="ring-2 ring-offset-2 ring-light-live dark:ring-dark-live ring-offset-light-secondary dark:ring-offset-dark-secondary transition duration-500"
 		/>
