@@ -23,7 +23,11 @@
 	"generic": {
 		"icon_button": "Button",
 		"link_button": "Link Button",
-		"toggle_button": "Toggle Button"
+		"toggle_button": "Toggle Button",
+		"input": {
+			"placeholder": "Search",
+			"placeholder_searching": "Searching..."
+		}
 	},
 	"view": {
 		"no_channel_selected": {
@@ -34,6 +38,18 @@
 			"title": "Mentions",
 			"header": "No Mentions",
 			"description": "No one has mentioned you yet."
+		}
+	},
+	"modal": {
+		"add_channel": {
+			"header": "Add Channel",
+			"input": {
+				"placeholder": "Channel Name..."
+			},
+			"button": {
+				"find": "Find Channel",
+				"add": "Add Channel"
+			}
 		}
 	}
 }

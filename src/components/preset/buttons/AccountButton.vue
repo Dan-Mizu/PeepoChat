@@ -50,7 +50,7 @@ const dropdownContentAnon = [
 </script>
 
 <template>
-	<Dropdown :items="dropdownContentAnon">
+	<Dropdown :items="dropdownContentAnon" disabled>
 		<AvatarButton ring roundedType="md" :clickCallback="openAccountPage" />
 	</Dropdown>
 </template>

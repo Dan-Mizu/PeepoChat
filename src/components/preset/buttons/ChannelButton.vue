@@ -23,7 +23,7 @@ const dropdownContent: Ref<DropdownItem[][]> = ref([
 </script>
 
 <template>
-	<Dropdown :items="dropdownContent">
+	<Dropdown :items="dropdownContent" disabled>
 		<AvatarButton
 			ring
 			ringStyle="ring-2 ring-offset-2 ring-light-live dark:ring-dark-live ring-offset-light-secondary dark:ring-offset-dark-secondary transition duration-500"

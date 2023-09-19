@@ -12,7 +12,7 @@ const props = withDefaults(
 		roundedType?: "medium" | "full";
 	}>(),
 	{
-		size: "xl",
+		size: "lg",
 		backgroundType: "primary",
 		roundedType: "full",
 	}
@@ -24,6 +24,25 @@ let style = {
 	color: {
 		primary: {
 			solid: "text-light-text dark:text-dark-text focus:outline-none",
+		},
+	},
+	square: {
+		"2xs": "p-1",
+		xs: "p-1",
+		sm: "p-1",
+		md: "p-2",
+		lg: "p-2.5",
+		xl: "p-2.5",
+	},
+	icon: {
+		base: "flex-shrink-0",
+		size: {
+			"2xs": "h-3 w-3",
+			xs: "h-4 w-4",
+			sm: "h-5 w-5",
+			md: "h-6 w-6",
+			lg: "h-6 w-6",
+			xl: "h-7 w-7",
 		},
 	},
 };
@@ -41,17 +60,11 @@ else if (props.backgroundType === "secondary")
 </script>
 
 <template>
-	<ClientOnly>
-		<UButton
-			:icon="icon"
-			:ui="style"
-			:size="props.size"
-			:aria-label="label ? label : localize('generic.icon_button')"
-			@click="clickCallback"
-		/>
-
-		<template #fallback>
-			<div class="w-8 h-8" />
-		</template>
-	</ClientOnly>
+	<UButton
+		:icon="icon"
+		:ui="style"
+		:size="props.size"
+		:aria-label="label ? label : localize('generic.icon_button')"
+		@click="clickCallback"
+	/>
 </template>

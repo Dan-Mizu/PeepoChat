@@ -23,7 +23,7 @@ export default defineNuxtConfig({
 		},
 	],
 	ui: {
-		icons: ["tabler", "fluent"],
+		icons: ["tabler", "fluent", "ri"],
 	},
 	i18n: {
 		vueI18n: "./src/assets/lang.ts",

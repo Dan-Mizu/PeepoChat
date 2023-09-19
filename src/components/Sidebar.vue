@@ -6,8 +6,8 @@ const store = useStore();
 // localization
 const localize = useI18n().t;
 
-// TODO: Add Channel
-const addChannel = () => {};
+// Add Channel Modal handling
+const modalAddChannelOpen = ref(false);
 </script>
 
 <template>
@@ -26,7 +26,7 @@ const addChannel = () => {};
 					v-for="(channel, _index) in store.user.channels"
 					class="flex justify-center mb-3"
 				>
-					<ChannelButton />
+					<ChannelButton :channel-data="channel" />
 				</li>
 
 				<!-- Add Channel Button -->
@@ -34,8 +34,8 @@ const addChannel = () => {};
 					<IconButton
 						:label="localize('sidebar.add_channel_button')"
 						icon="i-tabler-plus"
-						backgroundType="primary"
-						:clickCallback="addChannel"
+						size="lg"
+						:clickCallback="() => (modalAddChannelOpen = true)"
 					></IconButton>
 				</li>
 			</ul>
@@ -68,4 +68,9 @@ const addChannel = () => {};
 			<AccountButton />
 		</div>
 	</div>
+	<!-- Add Channel Modal -->
+	<AddChannelModal
+		:open="modalAddChannelOpen"
+		:closeModal="() => (modalAddChannelOpen = false)"
+	/>
 </template>
