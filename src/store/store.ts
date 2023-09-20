@@ -20,11 +20,11 @@ export default defineStore("chat", () => {
 	const activeView: Ref<IActiveView> = ref({ type: "chat" });
 
 	// methods
-	const getChannelDataFromID = (
+	function getChannelDataFromID(
 		providedChannel:
 			| { id: number; platform: "twitch" | "kick" }
 			| { id: string; platform: "youtube" }
-	): ITwitchChannelData | IYoutubeChannelData | IKickChannelData | null => {
+	): ITwitchChannelData | IYoutubeChannelData | IKickChannelData | null {
 		// find channel data
 		let channel:
 			| ITwitchChannelData
@@ -37,7 +37,7 @@ export default defineStore("chat", () => {
 				(channel: ITwitchChannelData) =>
 					channel.id === providedChannel.id
 			) as ITwitchChannelData;
-			console.log(channelData.value, channel)
+			console.log(channelData.value, channel);
 			return channel != null ? channel : null;
 		}
 
@@ -60,7 +60,7 @@ export default defineStore("chat", () => {
 
 		// no channel found
 		return null;
-	};
+	}
 
 	// return public references
 	return {
