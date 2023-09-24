@@ -1,7 +1,5 @@
 /** Local Settings */
 interface ISettings {
-	/** Current state of Dark Mode theme */
-	darkMode: boolean;
 	/** Current state of Sidebar visibility */
 	showSidebar: boolean;
 }

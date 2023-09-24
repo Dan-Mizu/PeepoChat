@@ -1,12 +1,6 @@
 export default {
-	// dark mode is on
+	// default settings
 	defaultSettings: {
-		// set dark mode to user's OS setting
-		darkMode:
-			window.matchMedia &&
-			window.matchMedia("(prefers-color-scheme: dark)").matches
-				? true
-				: false,
 		showSidebar: true,
 	} as ISettings,
 
