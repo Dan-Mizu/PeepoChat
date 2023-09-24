@@ -26,7 +26,7 @@ const modalAddChannelOpen = ref(false);
 					v-for="(channel, _index) in store.user.channels"
 					class="flex justify-center mb-3"
 				>
-					<ChannelButton :channel-data="channel" />
+					<ChannelButton :providedChannel="channel" />
 				</li>
 
 				<!-- Add Channel Button -->
