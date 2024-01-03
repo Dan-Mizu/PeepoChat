@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DropdownItem } from "@nuxt/ui/dist/runtime/types/dropdown";
+import type { DropdownItem } from "@nuxt/ui/dist/runtime/types/dropdown";
 
 const props = withDefaults(
 	defineProps<{

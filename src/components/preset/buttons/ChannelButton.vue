@@ -1,14 +1,11 @@
 <script setup lang="ts">
 // types
-import { DropdownItem } from "@nuxt/ui/dist/runtime/types/dropdown";
+import type { DropdownItem } from '@nuxt/ui/dist/runtime/types/dropdown';
 
 // localization
 const localize = useI18n().t;
 
-// get state
-import useStore from "~/store/store";
-const store = useStore();
-
+// props
 const props = defineProps<{
 	providedChannel:
 		| ISavedTwitchChannel
@@ -45,13 +42,13 @@ const dropdownContent: Ref<DropdownItem[][]> = ref([
 	>
 		<Dropdown :items="dropdownContent" disabled>
 			<AvatarButton
-				:avatar="providedChannel.avatar"
+				:avatar="props.providedChannel.avatar"
 				ring
 				ringStyle="ring-2 ring-offset-2 ring-light-live dark:ring-dark-live ring-offset-light-secondary dark:ring-offset-dark-secondary transition duration-500"
 			/>
 		</Dropdown>
 		<template #panel>
-			<span>{{ providedChannel.id }}</span>
+			<span>{{ props.providedChannel.id }}</span>
 		</template>
 	</UPopover>
 </template>
