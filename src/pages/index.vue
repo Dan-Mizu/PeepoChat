@@ -5,7 +5,7 @@ import NoChannelSelectedView from "~/components/views/NoChannelSelectedView.vue"
 import NoMentionsView from "~/components/views/NoMentionsView.vue";
 
 // get state
-import useStore from "~/store/store";
+import useStore from "~/stores";
 const store = useStore();
 
 // TODO: Change the activeView store to the Components themselves instead of strings, so skip the middleman

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // get state
-import useStore from "~/store/store";
+import useStore from "~/stores";
 const store = useStore();
 
 // localization

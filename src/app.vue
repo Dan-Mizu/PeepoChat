@@ -2,20 +2,10 @@
 // localization
 const localize = useI18n().t;
 
-// get state
-import useStore from "~/store/store";
-const store = useStore();
-
-// store state in local storage on every update
-store.$subscribe((_mutation, state) => {
-	localStorage.setItem("chat", JSON.stringify(state));
-});
-
 // add events when the component mounts.
 onMounted(async () => {
 	// run client-side only
 	if (process.browser) {
-		window.addEventListener("resize", resizeWindow);
 		window.addEventListener("contextmenu", preventContextMenu);
 	}
 
@@ -29,18 +19,9 @@ onMounted(async () => {
 onUnmounted(() => {
 	// run client-side only
 	if (process.browser) {
-		window.removeEventListener("resize", resizeWindow);
 		window.removeEventListener("contextmenu", preventContextMenu);
 	}
 });
-
-// reference to window height
-const height = ref(`${window.innerHeight}px`);
-
-// update height reference
-const resizeWindow = () => {
-	height.value = `${window.innerHeight}px`;
-};
 
 // prevent right-click context menu
 const preventContextMenu = (event: MouseEvent) => {
@@ -50,8 +31,8 @@ const preventContextMenu = (event: MouseEvent) => {
 
 <template>
 	<!-- full height div -->
-	<div :style="{ height: height }">
-		<NuxtLayout />
+	<div class="h-screen">
+		<NuxtPage />
 	</div>
 </template>
 

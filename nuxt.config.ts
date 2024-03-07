@@ -1,24 +1,27 @@
+import { name, version, author } from "./package.json";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	ssr: false,
 	devServer: {
 		port: 5500,
 	},
 	srcDir: "src",
-	devtools: { enabled: true },
-	colorMode: {
-		classSuffix: "",
-	},
 	modules: [
-		"@pinia/nuxt",
-		"@vueuse/nuxt",
-		"@nuxt/ui", // includes @nuxtjs/tailwindcss & @nuxtjs/color-mode
-		"nuxt-icon",
-		"@nuxtjs/i18n",
+		"@nuxt/ui", // UI library, includes @nuxtjs/tailwindcss & @nuxtjs/color-mode
+		"nuxt-icon", // icons
+		"@nuxtjs/i18n", // translations
+		"@pinia/nuxt", // storing state
+		"@pinia-plugin-persistedstate/nuxt" // persistent state
 	],
+	runtimeConfig: {
+		public: {
+			version,
+			userAgent: `${name}/${version} (${author.email})`,
+		},
+	},
 	components: [
 		{
-			path: "~/components", // will get any components nested in let's say /components/test too
+			path: "~/components", // check for nested components
 			pathPrefix: false,
 		},
 	],
@@ -28,4 +31,8 @@ export default defineNuxtConfig({
 	i18n: {
 		vueI18n: "./src/assets/lang.ts",
 	},
+	colorMode: {
+		classSuffix: "",
+	},
+	devtools: { enabled: true },
 });

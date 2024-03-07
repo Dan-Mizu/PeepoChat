@@ -13,6 +13,7 @@
         "Nuxt",
         "nuxtjs",
         "peepochat",
+        "persistedstate",
         "pinia",
         "reqwest",
         "tabler",
@@ -24,5 +25,6 @@
     ],
     "i18n-ally.localesPaths": [
         "src/assets/lang"
-    ]
+    ],
+    "workbench.iconTheme": "vs-seti"
 }

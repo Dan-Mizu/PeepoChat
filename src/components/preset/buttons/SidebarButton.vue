@@ -3,7 +3,7 @@
 const localize = useI18n().t;
 
 // get state
-import useStore from "~/store/store";
+import useStore from "~/stores";
 const store = useStore();
 
 // toggle sidebar
