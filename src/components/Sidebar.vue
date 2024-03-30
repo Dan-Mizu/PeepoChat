@@ -11,66 +11,83 @@ const modalAddChannelOpen = ref(false);
 </script>
 
 <template>
-	<!-- Sidebar -->
-	<div
-		id="sidebar"
-		class="w-10 h-full py-7 flex flex-col items-center bg-light-secondary dark:bg-dark-secondary"
-	>
-		<!-- Channels -->
-		<div
-			class="grow w-full pt-3 flex overflow-y-scroll scrollbar-hidden justify-center"
+	<transition name="slide">
+		<!-- Sidebar -->
+		<aside
+			id="sidebar"
+			v-if="store.settings.showSidebar"
+			class="w-10 h-full py-7 flex flex-col items-center bg-light-secondary dark:bg-dark-secondary"
 		>
-			<ul>
-				<!-- Channel Buttons -->
-				<li
-					v-for="(channel, _index) in store.user.channels"
-					class="flex justify-center mb-3"
-				>
-					<ChannelButton :providedChannel="channel" />
-				</li>
+			<!-- Channels -->
+			<div
+				class="grow w-full pt-3 flex overflow-y-scroll scrollbar-hidden justify-center"
+			>
+				<ul>
+					<!-- Channel Buttons -->
+					<li
+						v-for="(channel, _index) in store.user.channels"
+						class="flex justify-center mb-3"
+					>
+						<ChannelButton :providedChannel="channel" />
+					</li>
 
-				<!-- Add Channel Button -->
-				<li class="flex justify-center">
-					<IconButton
-						:label="localize('sidebar.add_channel_button')"
-						icon="i-tabler-plus"
-						size="lg"
-						:clickCallback="() => (modalAddChannelOpen = true)"
-					></IconButton>
-				</li>
-			</ul>
-		</div>
-
-		<!-- Personal -->
-		<div class="mt-5 text-center">
-			<!-- Theme Toggle Button -->
-			<div class="mb-6 text-center"><ThemeToggleButton /></div>
-
-			<!-- Mentions Page Button -->
-			<div class="mb-6 text-center">
-				<LinkIconButton
-					:label="localize('sidebar.mentions_button')"
-					icon="i-fluent-comment-mention-16-filled"
-					:clickCallback="
-						() => {
-							store.activeView = { type: 'mentions' };
-						}
-					"
-				/>
+					<!-- Add Channel Button -->
+					<li class="flex justify-center">
+						<IconButton
+							:label="localize('sidebar.add_channel_button')"
+							icon="i-tabler-plus"
+							size="lg"
+							:clickCallback="() => (modalAddChannelOpen = true)"
+						></IconButton>
+					</li>
+				</ul>
 			</div>
 
-			<!-- Separator -->
-			<hr
-				class="block my-6 divide-light-tertiary dark:divide-dark-tertiary"
-			/>
+			<!-- Personal -->
+			<div class="mt-5 text-center">
+				<!-- Theme Toggle Button -->
+				<div class="mb-6 text-center"><ThemeToggleButton /></div>
 
-			<!-- Account Button -->
-			<AccountButton />
-		</div>
-	</div>
+				<!-- Mentions Page Button -->
+				<div class="mb-6 text-center">
+					<LinkIconButton
+						:label="localize('sidebar.mentions_button')"
+						icon="i-fluent-comment-mention-16-filled"
+						:clickCallback="
+							() => {
+								store.activeView = { type: 'mentions' };
+							}
+						"
+					/>
+				</div>
+
+				<!-- Separator -->
+				<hr
+					class="block my-6 divide-light-tertiary dark:divide-dark-tertiary"
+				/>
+
+				<!-- Account Button -->
+				<AccountButton />
+			</div>
+		</aside>
+	</transition>
+
 	<!-- Add Channel Modal -->
 	<AddChannelModal
 		:open="modalAddChannelOpen"
 		:closeModal="() => (modalAddChannelOpen = false)"
 	/>
 </template>
+
+<style>
+.slide-enter-active,
+.slide-leave-active {
+	transition: transform 0.2s ease;
+}
+
+.slide-enter,
+.slide-leave-to {
+	transform: translateX(-100%);
+	transition: all 150ms ease-in 0s;
+}
+</style>

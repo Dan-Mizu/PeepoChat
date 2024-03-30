@@ -11,8 +11,8 @@ onMounted(async () => {
 
 	// set default title
 	useHead({
-		title: localize("title")
-	})
+		title: localize("title"),
+	});
 });
 
 // remove events when un-mounting the component.
@@ -32,7 +32,9 @@ const preventContextMenu = (event: MouseEvent) => {
 <template>
 	<!-- full height div -->
 	<div class="h-screen">
-		<NuxtPage />
+		<NuxtLayout>
+			<NuxtPage />
+		</NuxtLayout>
 	</div>
 </template>
 
