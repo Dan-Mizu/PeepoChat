@@ -17,13 +17,20 @@ const props = withDefaults(
 	}
 );
 const emit = defineEmits(['click']);
+
+// only one popover (tooltip or menu) is visible at a time app-wide
+const { isBlocked, onMouseEnter, onMouseLeave, openDelay } =
+	useExclusiveTooltip();
 </script>
 
 <template>
 	<!-- Tooltip wrapper -->
 	<UTooltip
 		:text="label"
-		:openDelay="800"
+		:openDelay="openDelay"
+		:prevent="isBlocked"
+		@mouseenter="onMouseEnter"
+		@mouseleave="onMouseLeave"
 		:popper="{
 			placement: 'right',
 		}"

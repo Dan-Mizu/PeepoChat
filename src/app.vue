@@ -90,6 +90,12 @@ const preventContextMenu = (event: MouseEvent) => event.preventDefault();
 .footer-layer {
 	@apply z-10;
 }
+.emote-overlay-layer {
+	z-index: 2;
+}
+.emote-layer {
+	z-index: 1;
+}
 
 /* offsets */
 .sidebar-offset {

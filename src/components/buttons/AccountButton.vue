@@ -42,6 +42,14 @@ const dropdownContentAnon = [
 		},
 	],
 ];
+
+// only one popover (menu or tooltip) is visible at a time app-wide; also
+// closes when the pointer leaves the trigger/menu (with a grace period)
+const {
+	isOpen: dropdownOpen,
+	cancelClose,
+	scheduleClose,
+} = useExclusiveMenu('account-menu');
 </script>
 
 <template>
@@ -50,7 +58,6 @@ const dropdownContentAnon = [
 		:items="dropdownContentAnon"
 		:ui="{
 			container: 'pl-2',
-			background: 'bg-secondary-color',
 			ring: '',
 			divide: '',
 			item: {
@@ -60,7 +67,9 @@ const dropdownContentAnon = [
 			padding: 'p-1',
 		}"
 		:popper="{ placement: 'right' }"
-		show
+		v-model:open="dropdownOpen"
+		@mouseenter="cancelClose"
+		@mouseleave="scheduleClose"
 	>
 		<!-- Button Trigger -->
 		<Button :label="localize('sidebar.account.button')" variant="hidden">

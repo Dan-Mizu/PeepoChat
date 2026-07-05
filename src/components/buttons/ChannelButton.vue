@@ -73,8 +73,13 @@ const dropdownContentAnon = computed(() => [
 	],
 ]);
 
-// state
-const dropdownOpen = ref(false);
+// only one popover (menu or tooltip) is visible at a time app-wide; also
+// closes when the pointer leaves the trigger/menu (with a grace period)
+const {
+	isOpen: dropdownOpen,
+	cancelClose,
+	scheduleClose,
+} = useExclusiveMenu(`channel-menu:${props.channel.name}`);
 </script>
 
 <template>
@@ -83,7 +88,6 @@ const dropdownOpen = ref(false);
 		:items="dropdownContentAnon"
 		:ui="{
 			container: 'pl-2',
-			background: 'bg-secondary-color',
 			ring: '',
 			divide: '',
 			item: {
@@ -93,8 +97,9 @@ const dropdownOpen = ref(false);
 			padding: 'p-1',
 		}"
 		:popper="{ placement: 'right' }"
-		show
 		v-model:open="dropdownOpen"
+		@mouseenter="cancelClose"
+		@mouseleave="scheduleClose"
 	>
 		<!-- Button Trigger -->
 		<Button

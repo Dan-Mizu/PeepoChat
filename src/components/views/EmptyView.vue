@@ -9,16 +9,11 @@ const props = defineProps<{
 <template>
 	<div class="h-full w-full flex">
 		<!-- Alert -->
-		<div
-			class="grow flex flex-col full-center"
-		>
+		<div class="grow flex flex-col full-center">
 			<div
 				class="w-10 h-10 mb-5 rounded-full bg-secondary-color flex full-center"
 			>
-				<Icon
-					:name="props.icon"
-					class="w-7 h-7"
-				/>
+				<Icon :name="props.icon" class="w-7 h-7" />
 			</div>
 
 			<h1 class="font-bold">

@@ -5,16 +5,22 @@ const props = defineProps<{
 	url: string;
 	previewUrl: string;
 }>();
+
+// only one popover (tooltip or menu) is visible at a time app-wide
+const { isBlocked, onMouseEnter, onMouseLeave, openDelay } =
+	useExclusiveTooltip();
 </script>
 
 <template>
 	<!-- Hover Tooltip -->
 	<UTooltip
-		:openDelay="800"
+		:openDelay="openDelay"
+		:prevent="isBlocked"
+		@mouseenter="onMouseEnter"
+		@mouseleave="onMouseLeave"
 		:popper="{ placement: 'right' }"
 		:ui="{
 			width: 'w-24',
-			background: 'opacity-100',
 			base: 'h-fit',
 		}"
 	>

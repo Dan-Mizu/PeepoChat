@@ -1,3 +1,7 @@
+// frosted-glass surface shared by all popovers (tooltips + dropdown menus):
+// 80% opaque themed panel with a subtle backdrop blur of whatever is behind it
+const frostedPanel = 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm';
+
 export default defineAppConfig({
 	// Nuxt UI
 	ui: {
@@ -48,7 +52,12 @@ export default defineAppConfig({
 			shadow: 'shadow-none',
 			rounded: 'rounded-sm',
 			ring: 'ring-0',
-			background: 'bg-secondary-color opacity-80',
+			background: frostedPanel,
+		},
+
+		// dropdown menu settings (sidebar right-click + button menus)
+		dropdown: {
+			background: frostedPanel,
 		},
 	},
 
